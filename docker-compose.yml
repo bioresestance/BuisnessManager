@@ -4,8 +4,8 @@ version: "3.7"
 
 services:
 
-    HomeLabSupervisor:
-        container_name: HomeLabSupervisor
+    home-lab-supervisor:
+        container_name: home-lab-supervisor
         build:
           context: ./
           dockerfile: dockerfile
