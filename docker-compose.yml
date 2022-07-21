@@ -1,0 +1,19 @@
+version: "3.7"
+
+########################### Services ########################### 
+
+services:
+
+    HomeLabSupervisor:
+        container_name: HomeLabSupervisor
+        build:
+          context: ./
+          dockerfile: dockerfile
+        restart: unless-stopped
+        ports:
+          - target: 5000
+            published: 5000
+            protocol: tcp
+            mode: host
+        environment:
+            FLASK_ENV: development
