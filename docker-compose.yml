@@ -16,4 +16,5 @@ services:
             protocol: tcp
             mode: host
         environment:
-            FLASK_ENV: development
+            SERVER_ENV: development
+            SERVER_SECRET_KEY: "This is a totally secret key"
