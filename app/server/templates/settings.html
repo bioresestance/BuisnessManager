@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+    <h1> Configurations </h1>
+
+
+
+    {% for key, value in config.items()  %}
+
+        <div>
+            <h2>{{key}}</h2>
+        </div>
+
+        {% for attribute in value.properties() %}
+
+            <div>
+                <p>{{value[attribute]}}</p>
+            </div>
+            <br>
+
+        {% endfor %}
+
+
+    {% endfor %}
+
+
+
+{% endblock %}

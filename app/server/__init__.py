@@ -6,13 +6,13 @@ from .config import Configuration
 
 app = Flask(__name__)
 
-
+serverconfig = Configuration()
 
 def get_app():
 
     # Set the secret key for the server from the env var.
-    if Configuration.secret_key:
-        app.config['SECRET_KEY'] = Configuration.secret_key
+    if serverconfig.secret_key:
+        app.config['SECRET_KEY'] = serverconfig.secret_key
     else:
         raise Exception("Environmental Variable 'SECRET_KEY' is not defined!!!!")
 
