@@ -5,6 +5,9 @@ from dataclasses import dataclass
 @dataclass()
 class GeneralSettings():
 
+    def CommonName(self):
+        return "General Settings"
+
     title: str = "Home Lab Supervisor"
     main_color: int = 0x47748b
     secondary_color: int = 0xcdcdcd

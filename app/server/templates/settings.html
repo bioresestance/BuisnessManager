@@ -8,20 +8,20 @@
 
     {% for key, value in config.items()  %}
 
-        <div>
-            <h2>{{key}}</h2>
-        </div>
-
-        {% for attribute in value.__dict__.keys() %}
-
-            <div>
-                <p>{{value[attribute]}}</p>
+        <div class="container w-100">
+            <div class="row ">
+                <h2>{{value.CommonName()}}</h2>
             </div>
-            <br>
 
-        {% endfor %}
+            {% for attribute in value.__dict__.keys() %}
 
+                <div class="row mt-3">
+                    <p>{{value[attribute]}}</p>
+                </div>
 
+            {% endfor %}
+
+        </div>
     {% endfor %}
 
 
