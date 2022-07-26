@@ -6,7 +6,8 @@ from dataclasses import dataclass
 class GeneralSettings():
 
     title: str = "Home Lab Supervisor"
-
+    main_color: int = 0x47748b
+    secondary_color: int = 0xcdcdcd
 
 
 

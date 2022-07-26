@@ -12,7 +12,7 @@
             <h2>{{key}}</h2>
         </div>
 
-        {% for attribute in value.properties() %}
+        {% for attribute in value.__dict__.keys() %}
 
             <div>
                 <p>{{value[attribute]}}</p>
