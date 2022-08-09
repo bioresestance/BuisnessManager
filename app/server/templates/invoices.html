@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1 class="display-4 text-center"> Invoices </h1>
+
+<div class="container border border-dark">
+    <h2 class="my-3">Create an Invoice</h2>
+    <form action="" method="post" >
+
+        <div class="w-25">
+            <label class="form-label mt-3">{{form.date.label}}</label>
+            {{form.date(class="form-control")}}
+        </div>
+
+
+        <label class="form-label mt-3">{{form.hours.label}}</label>
+        <div class="input-group w-25">
+            {{form.hours(class="form-control")}}
+            <span class="input-group-text">Hours</span>
+        </div>
+
+        <label class="form-label mt-3">{{form.rate.label}}</label>
+        <div class="input-group mb-3 w-25">
+            <span class="input-group-text">$</span>
+            {{form.rate(class="form-control")}}
+            <span class="input-group-text">.00</span>
+        </div>
+
+        <div class="mb-3 w-50">
+            <label class="form-label">{{form.file.label}}</label>
+            {{form.file(class="form-control")}}
+        </div>
+        {{form.submit(class="btn btn-primary mb-3")}}
+    </form>
+</div>
+{% endblock %}

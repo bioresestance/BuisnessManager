@@ -1,78 +1,72 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title> Home Lab Supervisor </title>
+<head>
+    <title> Home Lab Supervisor </title>
 
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <!-- Include any styling files defined in the styles file -->
-        {% include "styles.html" %}
-    </head>
+    <!-- Include any styling files defined in the styles file -->
+    {% include "styles.html" %}
+</head>
 
-    <body>
+<body>
 
-        <div class="wrapper">
-            <nav id="sidebar">
+    <div class="wrapper">
 
-                <div class="sidebar-header">
-                    <h3>Home Lab Supervisor</h3>
+        <nav id="sidebar">
+
+            <div class="sidebar-header">
+                <h3>Home Lab Supervisor</h3>
+            </div>
+            <ul class="list-unstyled components">
+                <li> <a href="/">Home</a> </li>
+                <li> <a href="/settings">Settings</a> </li>
+                <li> <a href="/invoices">Invoices</a> </li>
+                <li> <a href="#">Contact</a> </li>
+            </ul>
+
+        </nav>
+
+        <!-- Page Content -->
+        <div id="content">
+            <nav class="navbar navbar-expand-sm navbar-dark">
+                <div class="container-fluid">
+                    <button type="button" id="sidebarCollapse" class="btn btn-dark">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <span class="navbar-brand">
+                        Home
+                    </span>
                 </div>
-                <ul class="list-unstyled components">
-                    <li> <a href="/">Home</a> </li>
-                    <li> <a href="/settings">Settings</a></li>    
-                    <li> <a href="#">Portfolio</a> </li>
-                    <li> <a href="#">Contact</a> </li>
-                </ul>
-        
             </nav>
-            <!-- Page Content -->
-            <div id="content">
-                <nav class="navbar navbar-expand-sm navbar-dark">
-                    <div class="container-fluid">
-                        <button type="button" id="sidebarCollapse" class="btn btn-dark">
-                            <span class="navbar-toggler-icon"></span>
-                        </button>
 
-                        <span class="navbar-brand">
-                            Home
-                        </span>
-                    </div>
-                </nav>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+            {% for category, message in messages %}
+            <div class="alert alert-{{category}} alter-dismissable fade show" role="alert">
+                {{ message }}
+                <button type="button" class="btn btn-sm btn-close float-right" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% endfor %}
+            {% endif %}
+            {% endwith %}
 
-                {% with messages = get_flashed_messages(with_categories=true) %} 
-                    {% if messages %} 
-                        {% for category, message in messages %} 
-                            {% if category == 'error' %}
-                                <div class="alert alert-danger alter-dismissable fade show" role="alert">
-                                    {{ message }}
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            {% else %}
-                                <div class="alert alert-success alter-dismissable fade show" role="alert">
-                                    {{ message }}
-                                    <button type="button" class="close" data-dismiss="alert">
-                                        <span aria-hidden="true">&times;</span>
-                                    </button>
-                                </div>
-                            {% endif %} 
-                        {% endfor %} 
-                    {% endif %} 
-                {% endwith %}
-
-                <div>
-                    <!-- Main file content goes here -->
-                    {% block content %}{% endblock %}
-                </div>  
+            <div>
+                <!-- Main file content goes here -->
+                {% block content %}{% endblock %}
             </div>
         </div>
+    </div>
 
-        
-        <!-- Includes the script file, which defines all of the scripts for the site -->
-        {% include "scripts.html" %}
 
-    </body>
+    <!-- Includes the script file, which defines all of the scripts for the site -->
+    {% include "scripts.html" %}
+
+</body>
+
 </html>

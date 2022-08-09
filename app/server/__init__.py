@@ -1,8 +1,7 @@
-import imp
-import secrets
+from server.config import Configuration
 from flask import Flask
 from os import environ
-from .config import Configuration
+import lib.InvoiceGenerator
 
 app = Flask(__name__)
 
@@ -11,8 +10,8 @@ serverconfig = Configuration()
 def get_app():
 
     # Set the secret key for the server from the env var.
-    if serverconfig.secret_key:
-        app.config['SECRET_KEY'] = serverconfig.secret_key
+    # if serverconfig.secret_key:
+    app.config['SECRET_KEY'] = "serverconfig.secret_key"
     # else:
     #     raise Exception("Environmental Variable 'SECRET_KEY' is not defined!!!!")
 
