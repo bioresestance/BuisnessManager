@@ -46,10 +46,10 @@
             {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
             {% for category, message in messages %}
-            <div class="alert alert-{{category}} alter-dismissable fade show" role="alert">
+            <div class="alert alert-{{category}} alter-dismissable fade show w-75 mx-auto h4" role="alert">
                 {{ message }}
-                <button type="button" class="btn btn-sm btn-close float-right" data-bs-dismiss="alert" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
+                <button type="button" class="btn btn-lg btn-close" data-bs-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" class="h3">&times;</span>
                 </button>
             </div>
             {% endfor %}

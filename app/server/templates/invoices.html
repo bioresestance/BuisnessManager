@@ -5,12 +5,20 @@
 <h1 class="display-4 text-center"> Invoices </h1>
 
 <div class="container border border-dark">
-    <h2 class="my-3">Create an Invoice</h2>
-    <form action="" method="post" >
 
+    <h2 class="my-3">Create an Invoice</h2>
+    <form action="" method="post">
+        {{ form.csrf_token }}
         <div class="w-25">
             <label class="form-label mt-3">{{form.date.label}}</label>
             {{form.date(class="form-control")}}
+            {% if form.date.errors %}
+            <ul class="errors">
+                {% for error in form.date.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
 
@@ -18,6 +26,13 @@
         <div class="input-group w-25">
             {{form.hours(class="form-control")}}
             <span class="input-group-text">Hours</span>
+            {% if form.hours.errors %}
+            <ul class="errors">
+                {% for error in form.hours.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <label class="form-label mt-3">{{form.rate.label}}</label>
@@ -25,12 +40,28 @@
             <span class="input-group-text">$</span>
             {{form.rate(class="form-control")}}
             <span class="input-group-text">.00</span>
+            {% if form.rate.errors %}
+            <ul class="errors">
+                {% for error in form.rate.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
 
         <div class="mb-3 w-50">
             <label class="form-label">{{form.file.label}}</label>
             {{form.file(class="form-control")}}
+            {% if form.file.errors %}
+            <ul class="errors">
+                {% for error in form.file.errors %}
+                <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
         </div>
+
+
         {{form.submit(class="btn btn-primary mb-3")}}
     </form>
 </div>
