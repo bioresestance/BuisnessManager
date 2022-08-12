@@ -10,8 +10,6 @@ from wtforms import (
 from wtforms.widgets import ColorInput
 from wtforms.validators import DataRequired
 
-from server.config import GeneralSettings, InvoiceSettings
-
 
 class InvoiceGenerateForm(FlaskForm):
 
@@ -26,7 +24,7 @@ class GeneralSettingsForm(FlaskForm):
     def CommonName(self):
         return "General Settings"
 
-    def __init__(self, settings: GeneralSettings = GeneralSettings()) -> None:
+    def __init__(self, settings) -> None:
         super(GeneralSettingsForm, self).__init__()
         self.title.data = settings.title
         self.main_color.data = str(settings.main_color)
@@ -42,14 +40,22 @@ class GeneralSettingsForm(FlaskForm):
 
     submit = SubmitField("Save")
 
+    def __repr__(self) -> str:
+        return f"GeneralSettingsForm(title:{self.title.data})"
 
-class InvoiceSettings:
+
+class InvoiceSettingsForm(FlaskForm):
     def CommonName(self):
         return "Invoice Settings"
 
-    name: str = " "
-    address: str = " "
-    phone: str = " "
-    email: str = " "
-    website: str = " "
-    gst_num: str = " "
+    name: str = StringField("Company Name", validators=[DataRequired()])
+    address: str = StringField("Company Address", validators=[DataRequired()])
+    phone: str = StringField("Company Phone Number", validators=[DataRequired()])
+    email: str = StringField("Company Email", validators=[DataRequired()])
+    website: str = StringField("Company Website", validators=[DataRequired()])
+    gst_num: str = StringField("Company GST Number", validators=[DataRequired()])
+
+    submit = SubmitField("Save")
+
+    def __repr__(self) -> str:
+        return f"InvoiceSettingsForm(title:{self.name.data})"
