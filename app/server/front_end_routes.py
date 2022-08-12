@@ -1,7 +1,7 @@
-import imp
+from flask_wtf import FlaskForm
 from flask import Blueprint, request, render_template, flash
-from server import serverconfig
-from server.forms import InvoiceGenerateForm
+from server.config import Configuration, GeneralSettings
+from server.forms import GeneralSettingsForm, InvoiceGenerateForm
 from lib.InvoiceGenerator.invoice_generator import (
     InvoiceGenerator,
     BillableItem,
@@ -21,7 +21,15 @@ def home_route():
 
 @fe_routes.route("/settings")
 def settings_route():
-    return render_template("settings.html", config=serverconfig._DEFAULT_SETTINGS)
+
+    form = FlaskForm()
+
+    print(type(form))
+
+    print("Hello!")
+
+
+    return render_template("settings.html", forms=[GeneralSettingsForm()])
 
 
 test_company = Company(
@@ -45,6 +53,9 @@ test_client_info = ClientInfo(
 def settings_invoices():
 
     form = InvoiceGenerateForm()
+
+    test = { "test" : 1}
+
 
     if form.is_submitted():
         print(form.date.data)

@@ -15,22 +15,22 @@
 
     <div class="wrapper">
 
-        <nav id="sidebar">
+        <header>
+            <nav id="sidebar">
 
-            <div class="sidebar-header">
-                <h3>Home Lab Supervisor</h3>
-            </div>
-            <ul class="list-unstyled components">
-                <li> <a href="/">Home</a> </li>
-                <li> <a href="/settings">Settings</a> </li>
-                <li> <a href="/invoices">Invoices</a> </li>
-                <li> <a href="#">Contact</a> </li>
-            </ul>
-
-        </nav>
-
+                <div class="sidebar-header">
+                    <h2>Home Lab Supervisor</h2>
+                </div>
+                <ul class="list-unstyled components h5">
+                    <li class="my-3"> <a href="/">Home</a> </li>
+                    <li class="my-3"> <a href="/settings">Settings</a> </li>
+                    <li class="my-3"> <a href="/invoices">Invoices</a> </li>
+                    <li class="my-3"> <a href="#">Contact</a> </li>
+                </ul>
+            </nav>
+        </header>
         <!-- Page Content -->
-        <div id="content">
+        <main id="content">
             <nav class="navbar navbar-expand-sm navbar-dark">
                 <div class="container-fluid">
                     <button type="button" id="sidebarCollapse" class="btn btn-dark">
@@ -60,7 +60,7 @@
                 <!-- Main file content goes here -->
                 {% block content %}{% endblock %}
             </div>
-        </div>
+        </main>
     </div>
 
 

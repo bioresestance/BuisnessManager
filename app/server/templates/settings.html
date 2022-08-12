@@ -4,25 +4,36 @@
 
     <h1 class="display-4 text-center"> Configurations </h1>
 
-    {% for key, value in config.items()  %}
+    {% for form in forms  %}
 
         <div class="container border border-dark">
             <div class="row">
-                <h2 class="mx-auto mt-2">{{value.CommonName()}}</h2>
+                <h2 class="mx-auto mt-2">{{form.CommonName()}}</h2>
             </div>
 
             <form>
-                {% for attribute in value.__dict__.keys() %}
-
-                    <div class="row mt-3 mx-4">
-                        <label for="input_{{attribute}}" class="form-label">{{attribute}}</label>
-                        <input type="text" class="form-control" id="input_{{attribute}}" value="{{value[attribute]}}">
-                    </div>
+                {{form.csrf_token}}
+                {% for field in form %}
+                
+                    {% if field.type != "SubmitField" and field.name != "csrf_token"%}
+                        <div class="row mt-3 mx-4 w-50">
+                            <label class="form-label mb-1">{{field.label}}</label>
+                            {{field(class="form-control")}}
+                            {% if field.errors %}
+                                <ul class="errors">
+                                    {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                    {% endfor %}
+                                </ul>
+                            {% endif %}
+                        </div>
+                    {% elif field.type == "SubmitField" %}
+                        <div class="row mt-4">
+                            {{field(class ="btn btn-primary my-3 mx-auto")}}
+                        </div>
+                    {% endif %}
                     
-                {% endfor %}
-                <div class="row">
-                    <button type="submit" class="btn btn-primary my-3 mx-auto">Save</button>
-                </div>  
+                {% endfor %} 
             </form>
 
         </div>
