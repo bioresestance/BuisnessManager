@@ -1,28 +1,33 @@
+import "../styles/sidebar.css";
+
 export default function SideBar() {
   return (
-    <div className="container h-100">
-      <nav className="row h-75">
-        <div className="p-3 ">
-          <h2>Home Lab Supervisor</h2>
+    <div
+      className="h-100 d-flex flex-column align-content-between border-end rounded-end bg-secondary"
+      id="sidebar"
+    >
+      <nav className="mb-auto mx-3">
+        <div className="text-center pb-3 border-bottom border-dark">
+          <h3>Home Lab Supervisor</h3>
         </div>
-        <ul className="list-unstyled h5 navbar-nav">
-          <li className="my-3 navbar-item">
-            <a href="/">Home</a>
-          </li>
-          <li className="my-3 navbar-item">
-            <a href="/settings">Settings</a>
-          </li>
-          <li className="my-3 navbar-item">
-            <a href="/invoices">Invoices</a>
-          </li>
-          <li className="my-3 navbar-item">
-            <a href="#">Contact</a>
-          </li>
-        </ul>
+        <div className="list-group h5 navbar-nav my-5  gap-3 text-center mx-2">
+          <a href="/" className="list-group-item btn text-dark ">
+            Home
+          </a>
+          <a href="/settings" className=" list-group-item btn text-dark">
+            Settings
+          </a>
+          <a href="/invoices" className=" list-group-item btn text-dark">
+            Invoices
+          </a>
+          <a href="#" className=" list-group-item btn text-dark">
+            Contact
+          </a>
+        </div>
       </nav>
 
-      <div className="row h-25 ">
-        <span className="align-bottom">footer text here</span>
+      <div className="py-4 border-top border-dark text-center">
+        <span className="">footer text here</span>
       </div>
     </div>
   );
