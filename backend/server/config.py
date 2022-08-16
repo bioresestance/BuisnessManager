@@ -37,7 +37,7 @@ are gotten from the setting.yml file.
 
 """
 _SECRET_KEY = environ.get("SERVER_SECRET_KEY")
-_APP_ROOT = Path("/home/aaron/Dev/backend")
+_APP_ROOT = Path("/home/aaron/app")
 _APP_CONFIG_FILE = "config.cfg"
 
 
