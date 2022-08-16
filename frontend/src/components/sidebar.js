@@ -20,9 +20,9 @@ export default function SideBar() {
           <a href="/invoices" className=" list-group-item btn text-dark">
             Invoices
           </a>
-          <a href="#" className=" list-group-item btn text-dark">
+          {/* <a href="#" className=" list-group-item btn text-dark">
             Contact
-          </a>
+          </a> */}
         </div>
       </nav>
 
