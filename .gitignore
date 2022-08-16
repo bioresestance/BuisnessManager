@@ -3,4 +3,4 @@ __pycache__
 .vscode/settings.json
 *.pdf
 .flaskenv
-frontend/package-lock.json
+*/package-lock.json
