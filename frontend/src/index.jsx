@@ -1,11 +1,13 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import "./styles/index.css";
 
 import App from "./App";
 import Home from "./pages/home";
 import Settings from "./pages/settings";
+import Error404 from "./pages/404";
+
+import "./styles/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
@@ -13,8 +15,9 @@ root.render(
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<App />}>
-          <Route path="/" element={<Home />} />
+          <Route index element={<Home />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="*" element={<Error404 />} />
         </Route>
       </Routes>
     </BrowserRouter>
