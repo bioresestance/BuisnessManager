@@ -1,8 +1,10 @@
 from flask import Flask
 from server.config import Configuration
+from flask_cors import CORS
 
 
 app = Flask(__name__)
+cors = CORS()
 serverconfig = Configuration()
 serverconfig.init()
 
@@ -19,5 +21,7 @@ def get_app():
     from .rest_api_routes import api_routes
 
     app.register_blueprint(api_routes, url_prefix="/api")
+
+    cors.init_app(app)
 
     return app
