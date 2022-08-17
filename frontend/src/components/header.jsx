@@ -1,17 +1,21 @@
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
 export default function Header(props) {
   return (
-    <nav className="navbar navbar-expand-sm navbar-dark">
-      <div className="container-fluid">
+    <nav className="flex h-12 bg-slate-200 ">
+      <div className="flex grow">
         <button
           type="button"
           id="sidebarCollapse"
-          className="btn btn-dark"
+          className=""
           onClick={props.updateSidebarState}
         >
-          <span className="navbar-toggler-icon"></span>
+          <FontAwesomeIcon icon={faBars} />
         </button>
-
-        <span className="navbar-brand">Home</span>
+      </div>
+      <div className="flex align-middle p-0 m-0">
+        <span className="px-5 text-center text-2xl">Home</span>
       </div>
     </nav>
   );
