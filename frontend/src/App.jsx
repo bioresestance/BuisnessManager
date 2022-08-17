@@ -1,7 +1,8 @@
 import SideBar from "./components/sidebar";
 import Header from "./components/header";
-import MainSection from "./pages/main";
+import Home from "./pages/home";
 import { useState } from "react";
+import { Outlet, Link } from "react-router-dom";
 
 export default function App() {
   // Keep track of the state of the sidebar, wether its displayed or not.
@@ -22,7 +23,8 @@ export default function App() {
         <Header
           updateSidebarState={() => setSideBarState((prevVal) => !prevVal)}
         />
-        <MainSection />
+        {/* Outputs the content of the route */}
+        <Outlet />
       </main>
     </div>
   );

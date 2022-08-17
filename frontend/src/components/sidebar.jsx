@@ -1,15 +1,16 @@
 import "../styles/sidebar.css";
+import { Link } from "react-router-dom";
 import { navigation } from "../constants/navigation";
 
 export default function SideBar() {
   const navItems = navigation.map((item, index) => (
     <div key={index}>
-      <a
-        href={`${item.link}`}
+      <Link
+        to={`${item.link}`}
         className="flex  border-gray-700  border-2 mb-2 items-center text-lg py-3 px-6 h-10 overflow-hidden text-gray-700 text-ellipsis whitespace-nowrap rounded hover:text-gray-900 hover:bg-gray-100 transition duration-300 ease-in-out"
       >
         {item.text}
-      </a>
+      </Link>
     </div>
   ));
 

@@ -1,9 +1,10 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function MainSection() {
+export default function Settings() {
   const [settings, setSettings] = useState({ data: "" });
 
+  // Grab the settings from the backend
   useEffect(() => {
     axios("http://localhost:5000/api/settings").then((res) => {
       setSettings(res);
