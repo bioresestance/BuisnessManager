@@ -3,4 +3,3 @@ __pycache__
 .vscode/settings.json
 *.pdf
 .flaskenv
-*/package-lock.json
