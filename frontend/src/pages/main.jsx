@@ -25,7 +25,7 @@ export default function MainSection() {
             key={index}
             type="text"
             value={settingItem}
-            className="border mt-3 px-2"
+            className="border mt-3 px-2 rounded-md"
           />
         </div>
       );
@@ -33,7 +33,7 @@ export default function MainSection() {
 
     // Format the
     return (
-      <form key={index} className="border-2 gap-3 flex flex-col">
+      <form key={index} className="border-2 gap-3 flex flex-col rounded-md">
         <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
 
         {settingItems}
