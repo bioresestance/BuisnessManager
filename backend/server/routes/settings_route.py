@@ -2,11 +2,11 @@ from flask import Blueprint, jsonify, Response
 from server import serverconfig
 from flask_restx import Resource, Api
 
-api_routes = Blueprint("front End", __name__)
-api = Api(api_routes)
+setting_routes = Blueprint("front End", __name__)
+api = Api(setting_routes)
 
 
-@api.route("/settings")
+@api.route("/")
 class SettingsRoute(Resource):
     def get(self):
         return serverconfig.asDict()
@@ -15,8 +15,9 @@ class SettingsRoute(Resource):
         print(api.payload)
 
 
-@api.route("/settings/<group>")
-@api.param("group", "Group ID to work with")
+@api.route("/<group>")
+@api.param("group", "Group name to work with")
+@api.doc(params={"group": "Group name to work with"})
 class SettingsGroupRoute(Resource):
     def get(self, group):
         if group not in serverconfig.asDict():

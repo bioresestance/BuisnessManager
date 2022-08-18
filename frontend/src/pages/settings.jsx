@@ -9,7 +9,7 @@ export default function Settings() {
 
   // Grab the settings from the backend
   useEffect(() => {
-    axios("http://localhost:5000/api/settings").then((res) => {
+    axios("http://localhost:5000/api/v1/settings").then((res) => {
       setSettings(res);
     });
   }, []);
@@ -35,7 +35,7 @@ export default function Settings() {
         initialValues={{ ...initialValues }}
         onSubmit={(values) => {
           axios
-            .post("http://localhost:5000/api/settings" + `/${item}`, values)
+            .post("http://localhost:5000/api/v1/settings" + `/${item}`, values)
             .then((resp) => console.log(resp));
         }}
       >

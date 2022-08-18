@@ -1,3 +1,4 @@
+from pydoc import doc
 from flask import Flask
 from server.config import Configuration
 from flask_restx import Api
@@ -6,9 +7,10 @@ from flask_cors import CORS
 
 app = Flask(__name__)
 cors = CORS()
+restApi = Api()
+
 serverconfig = Configuration()
 serverconfig.init()
-restApi = Api(app)
 
 
 def get_app():
@@ -20,10 +22,12 @@ def get_app():
     #     raise Exception("Environmental Variable 'SECRET_KEY' is not defined!!!!")
 
     # Register the different blueprints.
-    from .rest_api_routes import api_routes
+    from server.routes import api_routes
 
-    app.register_blueprint(api_routes, url_prefix="/api")
+    # Appends API routes with /api/v1
+    app.register_blueprint(api_routes, url_prefix="/api/v1/")
 
+    restApi.init_app(app, doc=True)
     cors.init_app(app)
 
     return app
