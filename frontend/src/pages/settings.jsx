@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Formik, Form, useField, Field } from "formik";
+import { FormInput } from "../components/forminputs";
 import * as Yup from "yup";
 
 export default function Settings() {
@@ -18,31 +19,25 @@ export default function Settings() {
     const settingGroup = settings.data[item];
 
     // Returns a list of inputs representing all the setting for this group.
-    const settingItems = Object.keys(settingGroup).map((value, index) => {
-      const settingItem = settingGroup[value];
-      return (
-        <div key={index} className="p-3 grow">
-          <label className="font-bold mb-3">{value}</label>
-          <br />
-          <Field
-            name={value}
-            type="text"
-            value={settingItem || ""}
-            className="border mt-3 px-2 rounded-md"
-          />
-        </div>
-      );
-    });
+    const [settingItems, initialValues] = Object.keys(settingGroup).reduce(
+      ([a, b], value, index) => {
+        b[value] = settingGroup[value];
+        a.push(<FormInput key={index} name={value} label={value} />);
+        return [a, b];
+      },
+      [[], {}]
+    );
 
-    // Format the
+    // Format the form.
     return (
       <Formik
         key={index}
+        initialValues={{ ...initialValues }}
         onSubmit={(values) => {
-          alert("Hello World");
+          alert(JSON.stringify(values));
         }}
       >
-        <Form className="border-2 gap-3 flex flex-col rounded-md">
+        <Form className="border-2 flex flex-col rounded-md">
           <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
           {settingItems}
           <button
@@ -57,7 +52,10 @@ export default function Settings() {
   });
 
   return (
-    <div id="mainSection" className="border-top p-5 grid grid-cols-3 gap-4">
+    <div
+      id="mainSection"
+      className="border-top p-5 grid lg:grid-cols-3 grid-cols-1 gap-4"
+    >
       {settingsForm}
     </div>
   );
