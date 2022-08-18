@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { Formik, Form, useField, Field } from "formik";
+import * as Yup from "yup";
 
 export default function Settings() {
   const [settings, setSettings] = useState({ data: "" });
@@ -19,13 +21,13 @@ export default function Settings() {
     const settingItems = Object.keys(settingGroup).map((value, index) => {
       const settingItem = settingGroup[value];
       return (
-        <div className="p-3 grow">
+        <div key={index} className="p-3 grow">
           <label className="font-bold mb-3">{value}</label>
           <br />
-          <input
-            key={index}
+          <Field
+            name={value}
             type="text"
-            value={settingItem}
+            value={settingItem || ""}
             className="border mt-3 px-2 rounded-md"
           />
         </div>
@@ -34,14 +36,23 @@ export default function Settings() {
 
     // Format the
     return (
-      <form key={index} className="border-2 gap-3 flex flex-col rounded-md">
-        <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
-
-        {settingItems}
-        <button className="rounded bg-slate-100 inline-block w-[25%] place-self-center m-6">
-          Save {item} Settings
-        </button>
-      </form>
+      <Formik
+        key={index}
+        onSubmit={(values) => {
+          alert("Hello World");
+        }}
+      >
+        <Form className="border-2 gap-3 flex flex-col rounded-md">
+          <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
+          {settingItems}
+          <button
+            type="submit"
+            className="rounded bg-slate-100 inline-block w-[25%] place-self-center m-6"
+          >
+            Save {item} Settings
+          </button>
+        </Form>
+      </Formik>
     );
   });
 
