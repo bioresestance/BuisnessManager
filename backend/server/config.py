@@ -62,9 +62,9 @@ class Configuration(Setting):
         # First ensure the file even exists
         if exists(config_file):
             self.update(self.from_yaml_file(config_file))
-            print(self)
         else:
             self.to_yaml_file(config_file)
 
     def saveToDisk(self):
-        pass
+        config_file = _APP_ROOT / _APP_CONFIG_FILE
+        self.to_yaml_file(config_file)

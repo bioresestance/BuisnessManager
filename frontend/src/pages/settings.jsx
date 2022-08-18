@@ -34,7 +34,9 @@ export default function Settings() {
         key={index}
         initialValues={{ ...initialValues }}
         onSubmit={(values) => {
-          alert(JSON.stringify(values));
+          axios
+            .post("http://localhost:5000/api/settings" + `/${item}`, values)
+            .then((resp) => console.log(resp));
         }}
       >
         <Form className="border-2 flex flex-col rounded-md">

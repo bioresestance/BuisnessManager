@@ -1,15 +1,32 @@
-from flask import Blueprint, request, render_template, flash, redirect, url_for
+from flask import Blueprint, jsonify, Response
 from server import serverconfig
+from flask_restx import Resource, Api
 
 api_routes = Blueprint("front End", __name__)
+api = Api(api_routes)
 
 
-@api_routes.route("/")
-def home_route():
-    return {"ping": "pong"}
+@api.route("/settings")
+class SettingsRoute(Resource):
+    def get(self):
+        return serverconfig.asDict()
+
+    def post(self):
+        print(api.payload)
 
 
-@api_routes.route("/settings", methods=["POST", "GET"])
-def settings_route():
+@api.route("/settings/<group>")
+@api.param("group", "Group ID to work with")
+class SettingsGroupRoute(Resource):
+    def get(self, group):
+        if group not in serverconfig.asDict():
+            return Response("Erorr 404: Group Token not in Settings", 404)
+        return serverconfig.asDict()[group]
 
-    return serverconfig.asDict()
+    def post(self, group):
+        if group not in serverconfig.asDict():
+            return Response("Erorr 404: Group Token not in Settings", 404)
+
+        setattr(serverconfig, group, api.payload)
+        serverconfig.saveToDisk()
+        return serverconfig.asDict()
