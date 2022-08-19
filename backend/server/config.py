@@ -13,14 +13,14 @@ class Setting(YAMLWizard):
 
 
 @dataclass
-class GeneralSettings:
+class GeneralSettings(Setting):
     title: str = "Home Lab Supervisor"
     main_color: int = 0x47748B
     secondary_color: int = 0xCDCDCD
 
 
 @dataclass
-class InvoiceSettings:
+class InvoiceSettings(Setting):
     name: str = " "
     address: str = " "
     phone: str = " "
