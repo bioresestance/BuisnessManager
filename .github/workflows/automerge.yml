@@ -16,6 +16,6 @@ jobs:
         uses: exions/merge-upstream@v1
         with:
           upstream: bioresestance/HomeLabSupervisor
-          upstream-branch: develop
-          branch: main
+          upstream-branch: main
+          branch: develop
           token: ${{ secrets.TOKEN }}
