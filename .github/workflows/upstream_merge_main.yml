@@ -2,19 +2,23 @@ name: upstream-merge-into-main
 
 on: [push]
 
-jobs:
-  merge-upstream:
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+env:
+  MY_REPO: https://bioresestance:${{secrets.TOKEN}}@github.com/bioresestance/HomeLabSupervisor.git
+  MY_BRANCH: develop
+  MASTER_REPO: https://github.com/bioresestance/HomeLabSupervisor.git
+  MASTER_BRANCH: main
 
-      - name: Merge from upstream repo
-        uses: discdiver/merge-from-upstream-repo@v0.0.9
-        with:
-          useremail: aaron.bromma@gmail.com
-          username: bioresestance
-          upstream: bioresestance/HomeLabSupervisor
-          upstream-branch: develop
-          branch: main
-          token: ${{ secrets.TOKEN }}
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Merge develop into main
+        run: |
+          git clone ${{env.MASTER_REPO}} -b ${{env.MASTER_BRANCH}} tmp
+          cd tmp
+          git config user.name "Automerge Bot"
+          git config user.email "bot@example.com"
+          git config pull.rebase false
+          git pull ${{env.MY_REPO}} ${{env.MY_BRANCH}}
+          git push ${{env.MY_REPO}}
