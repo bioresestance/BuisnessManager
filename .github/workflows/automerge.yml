@@ -2,8 +2,6 @@ name: "Up merge"
 
 on:
   push:
-    branches:
-      - develop
 
 jobs:
   nightly-merge:
