@@ -2,6 +2,8 @@ name: "Up merge"
 
 on:
   push:
+    branches:
+      - develop
 
 jobs:
   nightly-merge:
@@ -14,7 +16,7 @@ jobs:
       - name: Up Merge
         uses: bambamboole/gha-upmerge@main
         with:
-          stable_branch: "main"
-          development_branch: "develop"
+          to_branch: "main"
+          from_branch: "develop"
         env:
           GITHUB_TOKEN: ${{ secrets.TOKEN }}
