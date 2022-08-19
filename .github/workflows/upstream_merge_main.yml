@@ -4,7 +4,7 @@ on: [push]
 
 env:
   MY_REPO: https://bioresestance:${{secrets.TOKEN}}@github.com/bioresestance/HomeLabSupervisor.git
-  MY_BRANCH: develop
+  MY_BRANCH: development
   MASTER_REPO: https://github.com/bioresestance/HomeLabSupervisor.git
   MASTER_BRANCH: main
 
