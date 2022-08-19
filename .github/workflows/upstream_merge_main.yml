@@ -3,7 +3,7 @@ name: upstream-merge-into-main
 on:
   push:
     branches:
-      - "develop"
+      - "development"
 
 env:
   MY_REPO: https://bioresestance:${{secrets.TOKEN}}@github.com/bioresestance/HomeLabSupervisor.git
