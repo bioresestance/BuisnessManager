@@ -10,9 +10,5 @@ api = Api(invoice_route)
 
 @api.route("/")
 class InvoiceRoute(Resource):
-    def __init__(self, api=None, *args, **kwargs):
-        super().__init__(api, *args, **kwargs)
-        print("Initialized the object")
-
     def get(self):
         return "Success"
