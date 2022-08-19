@@ -1,6 +1,0 @@
-flask[async]
-requests
-flask-wtf
-pyyaml
-python-dotenv
-borb
