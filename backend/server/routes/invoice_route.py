@@ -1,12 +1,14 @@
 from flask import Blueprint, jsonify, Response
 from server import serverconfig
-from flask_restx import Resource, Api
+from flask_restx import Resource, Api, fields
 from os import listdir, mkdir
 from os.path import isfile, join, exists
 from server.config import _APP_ROOT
 from pathlib import Path
 
-# from
+from server.models.clients import Client
+from server.models import db
+
 
 invoice_route = Blueprint("Invoices", __name__)
 
@@ -17,9 +19,6 @@ def listAllInvoices(path):
     if not exists(path):
         mkdir(path)
     return [f for f in listdir(path) if isfile(join(path, f))]
-
-
-# client =
 
 
 def listAllClients():
@@ -36,6 +35,11 @@ class InvoiceRoute(Resource):
 class InvoiceClientsRoute(Resource):
     def get(self):
         return listAllClients()
+
+    def post(self):
+        client = Client(**api.payload)
+        db.session.add(client)
+        db.session.commit()
 
 
 @api.route("/new")
