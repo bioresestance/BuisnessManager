@@ -3,7 +3,7 @@ import { Formik, Form, useField, Field } from "formik";
 export const FormInputText = (props) => {
   return (
     <div className="p-3 grow">
-      <label className="font-bold mb-3">{props.label}</label>
+      <label className="font-bold mb-1">{props.label}</label>
       <br />
       <Field
         name={props.name}

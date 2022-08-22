@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import App from "./App";
 import Home from "./pages/home";
 import Settings from "./pages/settings";
+import Invoice from "./pages/invoice";
 import Error404 from "./pages/404";
 
 import "./styles/index.css";
@@ -17,6 +18,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="settings" element={<Settings />} />
+          <Route path="invoices" element={<Invoice />} />
           <Route path="*" element={<Error404 />} />
         </Route>
       </Routes>
