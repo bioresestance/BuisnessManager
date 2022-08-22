@@ -18,7 +18,7 @@ root.render(
         <Route path="/" element={<App />}>
           <Route index element={<Home />} />
           <Route path="settings" element={<Settings />} />
-          <Route path="invoices" element={<Invoice />} />
+          <Route path="invoices/*" element={<Invoice />} />
           <Route path="*" element={<Error404 />} />
         </Route>
       </Routes>
