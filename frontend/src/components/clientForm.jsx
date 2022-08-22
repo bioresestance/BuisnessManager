@@ -26,7 +26,7 @@ export default function ClientForm() {
           alert(values);
         }}
       >
-        <form className="border flex flex-col rounded-md">
+        <Form className="border flex flex-col rounded-md place-items-center">
           <h1>Add a new client</h1>
           <FormInput name="client_name" label="Client Name" />
           <FormInput name="address" label="Street Address" />
@@ -36,13 +36,10 @@ export default function ClientForm() {
           <FormInput name="area_code_zip" label="Area Code / Zip Code" />
           <FormInput name="phone" label="Phone Number" />
           <FormInput name="email" label="Email" />
-          <button
-            type="submit"
-            className="rounded bg-slate-100 inline-block w-[25%] place-self-center m-6"
-          >
+          <button type="submit" className="btn">
             Submit
           </button>
-        </form>
+        </Form>
       </Formik>
     </div>
   );
