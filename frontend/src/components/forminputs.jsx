@@ -1,17 +1,26 @@
 import { Formik, Form, useField, Field } from "formik";
 
 export const FormInputText = (props) => {
+  const [field, meta] = useField(props);
+
   return (
-    <div className="p-3 grow">
-      <label className="font-bold mb-1">{props.label}</label>
-      <br />
-      <Field
-        name={props.name}
+    <div className="grow grid lg:grid-cols-3 grid-cols-1 px-4 mb-4 w-full">
+      <label className="font-bold pr-3 lg:place-self-end place-self-center ">
+        {props.label}
+      </label>
+      <input
         type="text"
-        className={
-          props.className ? props.className : "border mt-3 px-2 rounded-md"
-        }
+        {...field}
+        {...props}
+        className={`border rounded-md ${
+          meta.touched && meta.error ? "border-red-700 border-2" : ""
+        }`}
       />
+      {meta.touched && meta.error ? (
+        <div className="text-red-700 font-bold pl-3 lg:place-self-start place-self-center">
+          {meta.error}
+        </div>
+      ) : null}
     </div>
   );
 };
