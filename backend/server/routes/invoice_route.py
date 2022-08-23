@@ -22,7 +22,7 @@ def listAllInvoices(path):
 
 
 def listAllClients():
-    return [{"hello": "world"}]
+    return [client.to_dict() for client in Client.query.all()]
 
 
 @api.route("/")
@@ -37,6 +37,7 @@ class InvoiceClientsRoute(Resource):
         return listAllClients()
 
     def post(self):
+        print(api.payload)
         client = Client(**api.payload)
         db.session.add(client)
         db.session.commit()

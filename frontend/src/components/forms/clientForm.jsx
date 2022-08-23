@@ -10,6 +10,7 @@ export default function ClientForm() {
       <Formik
         initialValues={{
           client_name: "",
+          recipient: "",
           address: "",
           province_state: "",
           country: "",
@@ -20,15 +21,15 @@ export default function ClientForm() {
         }}
         validationSchema={newClientFormSchema}
         onSubmit={(values) => {
-          //   axios
-          //     .post("http://localhost:5000/api/v1/settings" + `/${item}`, values)
-          //     .then((resp) => console.log(resp));
-          console.log(values);
+          axios
+            .post("http://localhost:5000/api/v1/invoice/clients", values)
+            .then((resp) => console.log(resp));
         }}
       >
         <Form className="border flex flex-col rounded-md place-items-center">
           <h1>Add a new client</h1>
           <FormInput name="client_name" label="Client Name" />
+          <FormInput name="recipient" label="Recipient" />
           <FormInput name="address" label="Street Address" />
           <FormInput name="province_state" label="Province / State" />
           <FormInput name="country" label="Country" />
