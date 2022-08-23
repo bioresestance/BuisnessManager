@@ -33,9 +33,11 @@ class InvoiceRoute(Resource):
 
 @api.route("/clients")
 class InvoiceClientsRoute(Resource):
+    # Gets all Clients.
     def get(self):
         return listAllClients()
 
+    # Create a new Client.
     def post(self):
         print(api.payload)
         client = Client(**api.payload)
@@ -43,7 +45,33 @@ class InvoiceClientsRoute(Resource):
         db.session.commit()
 
 
-@api.route("/new")
-class InvoiceCreateRoute(Resource):
-    def post(self):
-        print(api.payload)
+## Client access by ID.
+@api.route("/clients/<id>")
+class InvoiceClientRoute(Resource):
+    def get(self, id: int):
+        client = Client.query.filter_by(id=id).first()
+
+        if client != None:
+            return client.to_dict()
+        else:
+            return "That Client does not exist", 404
+
+    def delete(self, id):
+        client = Client.query.filter_by(id=id).first()
+
+        if client != None:
+            db.session.delete(client)
+            db.session.commit()
+            return "Client Deleted", 200
+        else:
+            return "That Client does not exist", 404
+
+    def put(self, id):
+        client = Client.query.filter_by(id=id).first()
+
+        if client != None:
+            client.update(api.payload)
+            db.session.commit()
+            return client.to_dict(), 200
+        else:
+            return "That Client does not exist", 404
