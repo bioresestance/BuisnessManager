@@ -23,6 +23,7 @@ export default function Header(props) {
         return sub_navigation[root].map((value, index) => (
           // TODO: Add highlight to active link
           <Link
+            key={index}
             to={`${root}/${value.tab_link}`}
             className="tab tab-bordered text-black font-bold hover-bordered mx-2"
           >

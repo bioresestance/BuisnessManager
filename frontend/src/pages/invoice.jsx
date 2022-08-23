@@ -1,4 +1,4 @@
-import ClientForm from "../components/clientForm";
+import ClientForm from "../components/forms/clientForm";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
 
 export default function Invoice() {

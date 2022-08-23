@@ -9,6 +9,7 @@ export const FormInputText = (props) => {
         {props.label}
       </label>
       <input
+        autoComplete="off"
         type="text"
         {...field}
         {...props}
