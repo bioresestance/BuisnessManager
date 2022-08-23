@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Formik, Form, useField, Field } from "formik";
-import { FormInput } from "../components/forminputs";
-import { newClientFormSchema } from "../constants/schemas";
+import { FormInput } from "../forminputs";
+import { newClientFormSchema } from "../../constants/schemas";
 
 export default function ClientForm() {
   return (
@@ -23,7 +23,7 @@ export default function ClientForm() {
           //   axios
           //     .post("http://localhost:5000/api/v1/settings" + `/${item}`, values)
           //     .then((resp) => console.log(resp));
-          alert(values);
+          console.log(values);
         }}
       >
         <Form className="border flex flex-col rounded-md place-items-center">
