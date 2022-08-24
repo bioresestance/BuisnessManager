@@ -10,10 +10,10 @@ export default function App() {
 
   // Main application of the site. Implements a 2 column site, with a sidebar and main body content.
   return (
-    <div className="flex w-full h-full m-0 p-0 gap-3">
+    <div className="flex m-0 p-0 gap-3">
       {/* Display the sidebar based on state */}
       {sidebarState && (
-        <div className="p-0 m-0 max-w-md bg-zinc-300">
+        <div className="p-0 m-0 max-w-md h-screen bg-zinc-300 sticky top-0 left-0">
           <SideBar />
         </div>
       )}

@@ -1,6 +1,6 @@
 export default function Client(props) {
   return (
-    <div className="border p-6 flex flex-col gap-3">
+    <div className="border p-6 m-1 flex flex-col gap-3">
       <h1 className="place-self-center text-4xl font-bold border-b mb-4">
         {props.client_name}
       </h1>
@@ -31,7 +31,9 @@ export default function Client(props) {
       <div>
         <span className="font-bold text-lg pr-3">Email:</span> {props.email}
       </div>
-      <button className="btn">Delete</button>
+      <button className="btn" onClick={() => props.deleteFunction(props.id)}>
+        Delete
+      </button>
       <button className="btn">Edit</button>
     </div>
   );

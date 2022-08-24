@@ -37,7 +37,7 @@ export default function Header(props) {
   }, [location]);
 
   return (
-    <nav className="navbar h-12 bg-slate-200 ">
+    <nav className="navbar h-12 bg-slate-200 sticky top-0">
       <div className="navbar-start">
         <button
           type="button"
