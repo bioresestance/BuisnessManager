@@ -4,7 +4,7 @@ import { Formik, Form, useField, Field } from "formik";
 import { FormInput } from "../forminputs";
 import { newClientFormSchema } from "../../constants/schemas";
 
-export default function ClientForm() {
+export default function NewClientForm() {
   return (
     <div>
       <Formik
