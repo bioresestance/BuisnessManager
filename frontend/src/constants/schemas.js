@@ -16,12 +16,18 @@ export const newClientFormSchema = yup.object().shape({
   client_name: yup
     .string()
     .max(50, "Must be less than 50 characters")
-    .required(),
-  address: yup.string().required(),
-  province_state: yup.string().required(),
-  country: yup.string().required(),
-  city: yup.string().required(),
-  area_code_zip: yup.string().required(),
-  phone: yup.string().matches(phone_regex).required(),
-  email: yup.string().email("Please enter a valid Email"),
+    .required("Client Name is required"),
+  address: yup.string().required("Address is required"),
+  province_state: yup.string().required("Address is required"),
+  country: yup.string().required("Country is required"),
+  city: yup.string().required("City is required"),
+  area_code_zip: yup.string().required("Area Code/Zip Code is required"),
+  phone: yup
+    .string()
+    .matches(phone_regex, "Please enter a proper Phone Number")
+    .required("Phone Number is required"),
+  email: yup
+    .string()
+    .email("Please enter a valid Email")
+    .required("Email is required"),
 });
