@@ -1,6 +1,6 @@
 import React from "react";
 import { Form, Formik, FieldArray } from "formik";
-import { FormInput, FormInputSelect } from "../forminputs";
+import { FormInput, FormInputSelect, FormInputDate } from "../forminputs";
 import { useState, useEffect } from "react";
 import axios from "axios";
 
@@ -23,6 +23,7 @@ function NewInvoiceForm(props) {
     <Formik
       initialValues={{
         client: "",
+        date: "",
         items: [{ description: "", quantity: 0, price: 0 }],
       }}
     >
@@ -30,9 +31,11 @@ function NewInvoiceForm(props) {
         <FormInputSelect
           type="select"
           name="client"
-          label="text"
+          label="Client To Bill"
           options={clients}
         />
+
+        <FormInputDate name="date" label="Billing Start Date" />
 
         <FieldArray name="items">
           {(arrayProps) => {

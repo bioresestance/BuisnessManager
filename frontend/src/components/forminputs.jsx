@@ -1,4 +1,6 @@
-import { Formik, Form, useField, Field } from "formik";
+import { Formik, Form, useField, Field, useFormikContext } from "formik";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 export const FormInputText = (props) => {
   const [field, meta] = useField(props);
@@ -48,6 +50,31 @@ export const FormInputSelect = (props) => {
           </option>
         ))}
       </select>
+      {meta.touched && meta.error ? (
+        <div className="text-red-700 font-bold pl-3 lg:place-self-start place-self-center">
+          {meta.error}
+        </div>
+      ) : null}
+    </div>
+  );
+};
+
+export const FormInputDate = (props) => {
+  const { setFieldValue } = useFormikContext();
+  const [field, meta] = useField(props);
+  return (
+    <div className="grow grid lg:grid-cols-3 grid-cols-1 px-4 mb-4 w-full">
+      <label className="font-bold pr-3 lg:place-self-end place-self-center ">
+        {props?.label}
+      </label>
+      <DatePicker
+        {...field}
+        {...props}
+        selected={(field.value && new Date(field.value)) || null}
+        onChange={(val) => {
+          setFieldValue(field.name, val);
+        }}
+      />
       {meta.touched && meta.error ? (
         <div className="text-red-700 font-bold pl-3 lg:place-self-start place-self-center">
           {meta.error}
