@@ -23,11 +23,15 @@ function NewInvoiceForm(props) {
     <Formik
       initialValues={{
         client: "",
-        date: "",
+        date: new Date().toISOString().slice(0, 10).replace(/-/g, "/"), // Gets the current date and formats it.
         items: [{ description: "", quantity: 0, price: 0 }],
+      }}
+      onSubmit={(data) => {
+        console.log(data);
       }}
     >
       <Form className="border flex flex-col rounded-md place-items-center m-3 p-3">
+        <h1 className="text-4xl mb-10 underline">Create a New Invoice</h1>
         <FormInputSelect
           type="select"
           name="client"
@@ -35,7 +39,7 @@ function NewInvoiceForm(props) {
           options={clients}
         />
 
-        <FormInputDate name="date" label="Billing Start Date" />
+        <FormInputDate name="date" label="Invoice Date" />
 
         <FieldArray name="items">
           {(arrayProps) => {
@@ -43,7 +47,13 @@ function NewInvoiceForm(props) {
               <div>
                 {arrayProps.form.values.items.map((value, index) => {
                   return (
-                    <div key={index} className="border m-2 p-3">
+                    <div
+                      key={index}
+                      className="border m-2 p-3 flex flex-col place-items-center"
+                    >
+                      <h1 className="text-2xl font-bold mb-6">
+                        Billable Item {index + 1}
+                      </h1>
                       <FormInput
                         type="text"
                         name={`items.${index}.description`}
@@ -61,7 +71,11 @@ function NewInvoiceForm(props) {
                       />
                       <button
                         type="button"
-                        className={`btn `}
+                        className={`btn ${
+                          arrayProps.form.values.items.length <= 1
+                            ? "btn-disabled"
+                            : ""
+                        }`}
                         onClick={() => arrayProps.remove(index)}
                       >
                         X
@@ -69,7 +83,6 @@ function NewInvoiceForm(props) {
                     </div>
                   );
                 })}
-                {/* {console.log(arrayProps)} */}
                 <button
                   type="button"
                   className="btn"
