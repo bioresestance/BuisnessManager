@@ -30,6 +30,9 @@ class InvoiceRoute(Resource):
     def get(self):
         return listAllInvoices(_APP_ROOT / "invoices")
 
+    def post(self):
+        pass
+
 
 @api.route("/clients")
 class InvoiceClientsRoute(Resource):

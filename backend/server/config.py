@@ -22,11 +22,14 @@ class GeneralSettings(Setting):
 @dataclass
 class InvoiceSettings(Setting):
     name: str = " "
+    logo_url: str = " "
     address: str = " "
     phone: str = " "
     email: str = " "
     website: str = " "
     gst_num: str = " "
+    gst_rate: float = 5.0
+    due_date: int = 15
 
 
 """
