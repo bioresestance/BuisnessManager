@@ -8,6 +8,7 @@ from pathlib import Path
 
 from server.models.clients import Client
 from server.models import db
+from server.utilities.Invoice_utils import generateInvoice
 
 
 invoice_route = Blueprint("Invoices", __name__)
@@ -31,7 +32,8 @@ class InvoiceRoute(Resource):
         return listAllInvoices(_APP_ROOT / "invoices")
 
     def post(self):
-        pass
+        generateInvoice(api.payload)
+        return {"id": 1}
 
 
 @api.route("/clients")

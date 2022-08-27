@@ -27,7 +27,7 @@ function NewInvoiceForm(props) {
         items: [{ description: "", quantity: 0, price: 0 }],
       }}
       onSubmit={(data) => {
-        console.log(data);
+        axios.post("http://localhost:5000/api/v1/invoice/", data);
       }}
     >
       <Form className="border flex flex-col rounded-md place-items-center m-3 p-3">
