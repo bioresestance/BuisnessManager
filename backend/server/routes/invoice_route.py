@@ -8,18 +8,12 @@ from pathlib import Path
 
 from server.models.clients import Client
 from server.models import db
-from server.utilities.Invoice_utils import generateInvoice
+from server.utilities.Invoice_utils import generateInvoice, get_all_invoices
 
 
 invoice_route = Blueprint("Invoices", __name__)
 
 api = Api(invoice_route)
-
-
-def listAllInvoices(path):
-    if not exists(path):
-        mkdir(path)
-    return [f for f in listdir(path) if isfile(join(path, f))]
 
 
 def listAllClients():
@@ -29,7 +23,7 @@ def listAllClients():
 @api.route("/")
 class InvoiceRoute(Resource):
     def get(self):
-        return listAllInvoices(_APP_ROOT / "invoices")
+        return get_all_invoices()
 
     def post(self):
         generateInvoice(api.payload)
