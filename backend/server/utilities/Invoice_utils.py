@@ -74,5 +74,14 @@ def generateInvoice(data):
     document.create_default_document(
         billing_items=items,
         image_path=serverconfig.invoice.logo_url,
-        output_file_name=_APP_ROOT / "invoices" / f"invoice_{invoice_num}.pdf",
+        output_file_name=_INVOICE_ROOT
+        / f"invoice_{ client.client_name }_{invoice_num}.pdf",
     )
+
+
+def find_invoice_by_id(id: int):
+    files = glob(str(_INVOICE_ROOT) + f"/invoice_*_{id}.pdf")
+    if len(files) >= 1:
+        return files[0]
+    else:
+        return None

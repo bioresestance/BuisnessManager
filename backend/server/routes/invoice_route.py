@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify, Response
+from flask import Blueprint, send_file
 from server import serverconfig
 from flask_restx import Resource, Api, fields
 from os import listdir, mkdir
@@ -8,7 +8,11 @@ from pathlib import Path
 
 from server.models.clients import Client
 from server.models import db
-from server.utilities.Invoice_utils import generateInvoice, get_all_invoices
+from server.utilities.Invoice_utils import (
+    generateInvoice,
+    get_all_invoices,
+    find_invoice_by_id,
+)
 
 
 invoice_route = Blueprint("Invoices", __name__)
@@ -23,11 +27,39 @@ def listAllClients():
 @api.route("/")
 class InvoiceRoute(Resource):
     def get(self):
-        return get_all_invoices()
+        invoices = get_all_invoices()
+        data = []
+
+        # Create JSON to represent each file.
+        for invoice in invoices:
+            invoice_data = invoice.split("_")
+
+            data.append(
+                {
+                    "id": f"{invoice_data[2].split('.')[0]}",  # Extract Id from name
+                    "company": f"{invoice_data[1]}",  # Extract company name from name
+                }
+            )
+
+        return data
 
     def post(self):
         generateInvoice(api.payload)
         return {"id": 1}
+
+
+@api.route("/<id>")
+class InvoiceIdRoute(Resource):
+    def get(self, id: int):
+        file = find_invoice_by_id(id)
+
+        if file == None:
+            return "ERROR: That File does not exist", 404
+        else:
+            return send_file(file, attachment_filename=file.split("/")[-1])
+
+    def delete(self, id: int):
+        pass
 
 
 @api.route("/clients")
