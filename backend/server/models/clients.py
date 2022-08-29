@@ -12,4 +12,5 @@ class Client(db.Model, SerializerMixin):
     country = db.Column(db.String(50), nullable=False)
     area_code_zip = db.Column(db.String(20), nullable=False)
     phone = db.Column(db.String(20), nullable=False)
-    email = db.Column(db.String(80))
+    email = db.Column(db.String(80), nullable=False)
+    invoices = db.relationship("Invoice", backref="client", lazy=True)

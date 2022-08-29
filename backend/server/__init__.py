@@ -16,12 +16,11 @@ def get_app():
 
     serverconfig.init()
 
+    app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SECRET_KEY"] = _SECRET_KEY
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         "sqlite://" + "//home/aaron/app" + "/database.db"
     )
-
-    print(app.config["SQLALCHEMY_DATABASE_URI"])
 
     # Register the different blueprints.
     from server.routes import api_routes
