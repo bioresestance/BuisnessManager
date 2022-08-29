@@ -19,8 +19,12 @@ export const navigation = [
 export const sub_navigation = {
   invoices: [
     {
-      tab_name: "New Invoice",
+      tab_name: "Invoices",
       tab_link: "",
+    },
+    {
+      tab_name: "New Invoice",
+      tab_link: "new_invoice",
     },
     {
       tab_name: "New Client",
