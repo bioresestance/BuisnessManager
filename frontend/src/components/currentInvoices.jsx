@@ -11,9 +11,9 @@ export default function CurrentInvoices() {
       setInvoices(() => {
         return resp.data.map((value, index) => {
           return (
-            <div className="border m-3 p-2 flex flex-col gap-3">
+            <div className="border m-3 p-2 flex flex-col gap-3" key={index}>
               <h1 className="text-3xl place-self-center">Invoice {value.id}</h1>
-              Company: {value.company}
+              Company: {value?.client?.client_name}
               <button className="btn">
                 Download{"  "}
                 <span className="pl-2">
