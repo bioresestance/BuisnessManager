@@ -3,6 +3,9 @@ from sqlalchemy_serializer import SerializerMixin
 
 
 class Invoice(db.Model, SerializerMixin):
+
+    serialize_rules = ("-client.invoices",)
+
     id = db.Column(db.Integer, primary_key=True)
     date = db.Column(db.DateTime, nullable=False)
     items = db.Column(db.JSON, nullable=False)

@@ -1,17 +1,10 @@
 from flask import Blueprint, send_file
-from server import serverconfig
 from flask_restx import Resource, Api, fields
-from os import listdir, mkdir
-from os.path import isfile, join, exists
-from server.config import _APP_ROOT
-from pathlib import Path
 
-from server.models.clients import Client
-from server.models import db
+from server.models import db, Client, Invoice
 from server.utilities.Invoice_utils import (
-    generateInvoice,
-    get_all_invoices,
     find_invoice_by_id,
+    create_invoice,
 )
 
 
@@ -27,25 +20,20 @@ def listAllClients():
 @api.route("/")
 class InvoiceRoute(Resource):
     def get(self):
-        invoices = get_all_invoices()
-        data = []
+        invoices = Invoice.query.all()
+
+        if len(invoices) <= 0:
+            return {}
 
         # Create JSON to represent each file.
+        data = []
         for invoice in invoices:
-            invoice_data = invoice.split("_")
-
-            data.append(
-                {
-                    "id": f"{invoice_data[2].split('.')[0]}",  # Extract Id from name
-                    "company": f"{invoice_data[1]}",  # Extract company name from name
-                }
-            )
+            data.append(invoice.to_dict())
 
         return data
 
     def post(self):
-        generateInvoice(api.payload)
-        return {"id": 1}
+        return create_invoice(api.payload)
 
 
 @api.route("/<id>")

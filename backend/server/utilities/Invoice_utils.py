@@ -11,23 +11,25 @@ from lib.InvoiceGenerator import (
     InvoiceGenerator,
 )
 from server.config import _APP_ROOT
-from pathlib import Path
 from server import serverconfig
-from server.models.clients import Client as ClientDB
+from server.models import db, Client as ClientDB, Invoice as InvoiceDB
+
 
 _INVOICE_ROOT = _APP_ROOT / "invoices"
 
 
-def get_all_invoices():
+def create_invoice(jsonData):
+    print(jsonData)
+    invoice = InvoiceDB(
+        date=datetime.strptime(jsonData["date"], "%Y/%m/%d"),
+        client_id=jsonData["client"],
+        items=jsonData["items"],
+    )
 
-    if not exists(_INVOICE_ROOT):
-        mkdir(_INVOICE_ROOT)
-    return [f for f in listdir(_INVOICE_ROOT) if isfile(join(_INVOICE_ROOT, f))]
+    db.session.add(invoice)
+    db.session.commit()
 
-
-def get_next_invoice_number():
-    # For now just uses the existing number of invoices to determine next number.
-    return len(get_all_invoices()) + 1
+    return invoice.to_dict()
 
 
 def generateInvoice(data):
