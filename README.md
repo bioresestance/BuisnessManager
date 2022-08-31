@@ -1,8 +1,22 @@
-# HomeLabSupervisor 👀
-
-Supervisor software for my Home Lab and Life in general. This repo contains both the front end and backend components to the supervisor.
+# Buisness Manager  💸👀
 
 > Please Note, this is currently under heavy development, so may change. Also, it is currently scoped to serve my personal needs, so may not be generic to be used by the general public.
+Supervisor software for my small buisness. This repo contains both the front end and backend components to the manager.
+
+## Features 🏁
+
+### Create Invoices
+
+Easily create invoices for your clients. Simply add your clients information to the list and then select them in the invoice creation tool. Keeps track of all invoices per client and whether they have been paid or not.
+
+
+## Future Plans 📅
+
+- Expense forms, including general purches and car travel.
+- Employee management. Keep track of all employees, including title, responsibilities, managers, etc.
+- User management. Allow access to specific sections based on user group.
+- Project management. Create projects and keep track of tasks for them.
+- Excel export. Allow exporting data in excel form for easy addition to accountant software.
 
 # 🧑‍💻 Development
 
