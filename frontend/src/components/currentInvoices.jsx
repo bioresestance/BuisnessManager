@@ -21,6 +21,7 @@ export default function CurrentInvoices() {
               <a
                 className="btn"
                 href={`http://localhost:5000/api/v1/invoice/${value.id}`}
+                download
               >
                 Download{"  "}
                 <span className="pl-2">
