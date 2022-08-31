@@ -1,3 +1,4 @@
+
 [submodule "backend/lib/InvoiceGenerator"]
 	path = backend/lib/InvoiceGenerator
-	url = https://github.com/bioresestance/InvoiceGenerator.git
+	url = https://github.com/bioresestance/InvoiceGenerator

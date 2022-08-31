@@ -42,10 +42,7 @@ export default function Settings() {
         <Form className="border-2 flex flex-col rounded-md">
           <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
           {settingItems}
-          <button
-            type="submit"
-            className="rounded bg-slate-100 inline-block w-[25%] place-self-center m-6"
-          >
+          <button type="submit" className="btn m-3">
             Save {item} Settings
           </button>
         </Form>
