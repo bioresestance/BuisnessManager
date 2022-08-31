@@ -22,7 +22,7 @@ class InvoiceRoute(Resource):
         invoices = Invoice.query.all()
 
         if len(invoices) <= 0:
-            return {}
+            return []
 
         # Create JSON to represent each file.
         data = []
@@ -50,7 +50,14 @@ class InvoiceIdRoute(Resource):
             )
 
     def delete(self, id: int):
-        pass
+        invoice = Invoice.query.filter_by(id=id).first()
+
+        if invoice != None:
+            db.session.delete(invoice)
+            db.session.commit()
+            return "Invoice Deleted", 200
+        else:
+            return "That Invoice does not exist", 404
 
 
 @api.route("/clients")

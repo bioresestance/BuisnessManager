@@ -6,8 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export default function CurrentInvoices() {
   const [invoices, setInvoices] = useState([]);
 
-  function on_download_click(id) {
-    axios.get(`http://localhost:5000/api/v1/invoice/${id}`);
+  function on_delete_click(id) {
+    axios.delete(`http://localhost:5000/api/v1/invoice/${id}`);
   }
 
   useEffect(() => {
@@ -28,7 +28,7 @@ export default function CurrentInvoices() {
                   <FontAwesomeIcon icon={faDownload} />
                 </span>
               </a>
-              <button className="btn">
+              <button className="btn" onClick={() => on_delete_click(value.id)}>
                 Delete{" "}
                 <span className="pl-2">
                   <FontAwesomeIcon icon={faX} />
