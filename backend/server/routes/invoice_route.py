@@ -3,7 +3,6 @@ from flask_restx import Resource, Api, fields
 
 from server.models import db, Client, Invoice
 from server.utilities.Invoice_utils import (
-    find_invoice_by_id,
     create_invoice,
 )
 
@@ -39,12 +38,16 @@ class InvoiceRoute(Resource):
 @api.route("/<id>")
 class InvoiceIdRoute(Resource):
     def get(self, id: int):
-        file = find_invoice_by_id(id)
+        file: Invoice = Invoice.query.filter_by(id=id).first()
 
         if file == None:
-            return "ERROR: That File does not exist", 404
+            return "ERROR: That invoice does not exist", 404
         else:
-            return send_file(file, attachment_filename=file.split("/")[-1])
+            return send_file(
+                file.file_path,
+                attachment_filename=f"{file.client.client_name}_invoice_{file.id}.pdf",
+                as_attachment=True,
+            )
 
     def delete(self, id: int):
         pass
