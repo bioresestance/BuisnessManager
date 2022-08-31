@@ -2,7 +2,7 @@ from flask import Blueprint, jsonify, Response
 from server import serverconfig
 from flask_restx import Resource, Api
 
-setting_routes = Blueprint("front End", __name__)
+setting_routes = Blueprint("settings", __name__)
 api = Api(setting_routes)
 
 
