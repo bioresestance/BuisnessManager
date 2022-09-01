@@ -1,8 +1,7 @@
-import { useState, useEffect } from "react";
 import axios from "axios";
-import { Formik, Form, useField, Field } from "formik";
+import { Formik, Form } from "formik";
 import { FormInput } from "../forminputs";
-import { newClientFormSchema } from "../../constants/schemas";
+import { newClientFormSchema } from "constants/schemas";
 
 export default function NewClientForm() {
   return (

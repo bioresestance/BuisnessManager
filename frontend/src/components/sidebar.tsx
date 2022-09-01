@@ -1,6 +1,6 @@
-import "../styles/sidebar.css";
+import "styles/sidebar.css";
 import { Link } from "react-router-dom";
-import { navigation } from "../constants/navigation";
+import { navigation } from "constants/navigation";
 
 export default function SideBar() {
   const navItems = navigation.map((item, index) => (

@@ -1,8 +1,7 @@
 import { FaBars } from "react-icons/fa";
-import { sub_navigation } from "../constants/navigation";
-import { useLocation } from "react-router-dom";
+import { sub_navigation } from "constants/navigation";
+import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 
 export default function Header(props) {
   const location = useLocation();

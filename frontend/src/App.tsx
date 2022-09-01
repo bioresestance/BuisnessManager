@@ -1,8 +1,10 @@
 import SideBar from "components/sidebar";
 import Header from "components/header";
 import Message from "components/mesage";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { Outlet } from "react-router-dom";
+
+import IMessage from "interfaces/iMessage";
 
 export default function App() {
   // Keep track of the state of the sidebar, wether its displayed or not.
@@ -12,7 +14,7 @@ export default function App() {
     // { message: "Hello world", type: "warning" },
   ]);
 
-  const deleteMessage = (id) => {
+  const deleteMessage = (id: number) => {
     console.log(id);
     setMessages((prevVal) => {
       prevVal.splice(id, 1);
@@ -21,7 +23,7 @@ export default function App() {
     console.log(messages);
   };
 
-  let messageComponents = messages.map((message, index) => {
+  let messageComponents = messages.map((message: IMessage, index: number) => {
     return (
       <Message
         key={index}

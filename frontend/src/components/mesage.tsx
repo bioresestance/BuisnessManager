@@ -1,6 +1,12 @@
+import IMessage from "interfaces/iMessage";
 import { useEffect } from "react";
 
-export default function Message(props) {
+interface IMessageProps extends IMessage {
+  id: number;
+  close(id: number): void;
+}
+
+export default function Message(props: IMessageProps) {
   //   useEffect(() => {
   //     setTimeout(() => {
   //       props.close(props.id);

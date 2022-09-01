@@ -1,8 +1,8 @@
-import NewClientForm from "../components/forms/newClientForm";
-import ClientForm from "../components/forms/clientForm";
+import NewClientForm from "components/forms/newClientForm";
+import ClientForm from "components/forms/clientForm";
 import { Link, Outlet, Route, Routes } from "react-router-dom";
-import NewInvoiceForm from "../components/forms/newInvoiceForm";
-import CurrentInvoices from "../components/currentInvoices";
+import NewInvoiceForm from "components/forms/newInvoiceForm";
+import CurrentInvoices from "components/currentInvoices";
 
 export default function Invoice() {
   return (

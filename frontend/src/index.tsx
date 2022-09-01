@@ -10,7 +10,9 @@ import Error404 from "./pages/404";
 
 import "./styles/index.css";
 
-const root = ReactDOM.createRoot(document.getElementById("root")!);
+const root = ReactDOM.createRoot(
+  document.getElementById("root") as HTMLDivElement
+);
 root.render(
   <React.StrictMode>
     <BrowserRouter>
