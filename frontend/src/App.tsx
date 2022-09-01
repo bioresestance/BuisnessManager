@@ -1,6 +1,6 @@
-import SideBar from "./components/sidebar";
-import Header from "./components/header";
-import Message from "./components/mesage";
+import SideBar from "components/sidebar";
+import Header from "components/header";
+import Message from "components/mesage";
 import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 

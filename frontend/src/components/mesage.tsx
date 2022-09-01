@@ -1,5 +1,3 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useEffect } from "react";
 
 export default function Message(props) {
@@ -15,7 +13,7 @@ export default function Message(props) {
     >
       <p>{props.message}</p>
       <button className="btn" onClick={() => props.close(props.id)}>
-        <FontAwesomeIcon icon={faX} />
+        x
       </button>
     </div>
   );

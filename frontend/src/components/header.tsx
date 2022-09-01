@@ -1,5 +1,4 @@
-import { faBars } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaBars } from "react-icons/fa";
 import { sub_navigation } from "../constants/navigation";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
@@ -45,10 +44,7 @@ export default function Header(props) {
           className="rounded bg-slate-100  place-self-center p-2 m-2"
           onClick={props.updateSidebarState}
         >
-          <FontAwesomeIcon
-            icon={faBars}
-            className="rounded bg-slate-100  place-self-center w-full"
-          />
+          <FaBars />
         </button>
       </div>
       <div className="navbar-center">
