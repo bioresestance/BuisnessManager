@@ -1,7 +1,7 @@
 import axios from "axios";
 import { Formik, Form } from "formik";
-import { FormInput } from "Components/FormInputs";
-import { newClientFormSchema } from "Constants/Schemas";
+import { FormInput } from "Common/Components/FormInputs";
+import { newClientFormSchema } from "Common/Constants/Schemas";
 
 export default function ClientForm() {
   return (

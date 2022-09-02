@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { navigation } from "Constants/Navigation";
+import { navigation } from "Common/Constants/Navigation";
 
 export default function SideBar() {
   const navItems = navigation.map((item, index) => (
