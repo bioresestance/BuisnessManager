@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { faDownload, faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { FaDownload } from "react-icons/fa";
 
 export default function CurrentInvoices() {
   const [invoices, setInvoices] = useState([]);
@@ -25,14 +24,11 @@ export default function CurrentInvoices() {
               >
                 Download{"  "}
                 <span className="pl-2">
-                  <FontAwesomeIcon icon={faDownload} />
+                  <FaDownload />
                 </span>
               </a>
               <button className="btn" onClick={() => on_delete_click(value.id)}>
-                Delete{" "}
-                <span className="pl-2">
-                  <FontAwesomeIcon icon={faX} />
-                </span>
+                Delete <span className="pl-2"></span>
               </button>
             </div>
           );
