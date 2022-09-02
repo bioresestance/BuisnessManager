@@ -2,13 +2,13 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-import App from "./App";
-import Home from "./pages/home";
-import Settings from "./pages/settings";
-import Invoice from "./pages/invoice";
-import Error404 from "./pages/404";
+import App from "App";
+import Home from "Pages/Home/Home";
+import Settings from "Pages/Settings/Settings";
+import Invoice from "Pages/Invoices/Invoices";
+import Error404 from "Pages/Errors/404";
 
-import "./styles/index.css";
+import "Styles/index.css";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLDivElement

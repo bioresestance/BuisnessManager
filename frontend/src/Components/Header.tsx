@@ -1,5 +1,5 @@
 import { FaBars } from "react-icons/fa";
-import { sub_navigation } from "constants/navigation";
+import { sub_navigation } from "Constants/Navigation";
 import { useLocation, Link } from "react-router-dom";
 import { useState, useEffect } from "react";
 

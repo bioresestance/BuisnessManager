@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import { Formik, Form } from "formik";
-import { FormInput } from "components/forminputs";
+import { FormInput } from "Components/FormInputs";
 
 export default function Settings() {
   const [settings, setSettings] = useState({ data: "" });

@@ -1,9 +1,9 @@
 import axios from "axios";
 import { Formik, Form } from "formik";
-import { FormInput } from "../forminputs";
-import { newClientFormSchema } from "constants/schemas";
+import { FormInput } from "Components/FormInputs";
+import { newClientFormSchema } from "Constants/Schemas";
 
-export default function NewClientForm() {
+export default function ClientForm() {
   return (
     <div>
       <Formik

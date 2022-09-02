@@ -1,4 +1,4 @@
-import IMessage from "interfaces/iMessage";
+import IMessage from "Interfaces/iMessage";
 import { useEffect } from "react";
 
 interface IMessageProps extends IMessage {

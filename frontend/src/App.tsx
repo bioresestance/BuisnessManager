@@ -1,10 +1,10 @@
-import SideBar from "components/sidebar";
-import Header from "components/header";
-import Message from "components/mesage";
+import SideBar from "Components/Sidebar";
+import Header from "Components/Header";
+import Message from "Components/Mesage";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
 
-import IMessage from "interfaces/iMessage";
+import IMessage from "Interfaces/iMessage";
 
 export default function App() {
   // Keep track of the state of the sidebar, wether its displayed or not.
