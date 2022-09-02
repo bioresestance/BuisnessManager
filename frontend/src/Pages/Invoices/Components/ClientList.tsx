@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Client from "../client";
+import Client from "./Client";
 
-export default function ClientForm() {
+export default function ClientList() {
   const [clients, setClients] = useState([]);
 
   function getClients() {

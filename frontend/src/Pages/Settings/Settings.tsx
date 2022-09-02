@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
-import { Formik, Form, useField, Field } from "formik";
-import { FormInput } from "../components/forminputs";
-import * as Yup from "yup";
+import { Formik, Form } from "formik";
+import { FormInput } from "Common/Components/FormInputs";
 
 export default function Settings() {
   const [settings, setSettings] = useState({ data: "" });
@@ -20,7 +19,7 @@ export default function Settings() {
 
     // Returns a list of inputs representing all the setting for this group.
     const [settingItems, initialValues] = Object.keys(settingGroup).reduce(
-      ([a, b], value, index) => {
+      ([a, b], value: string, index: number) => {
         b[value] = settingGroup[value];
         a.push(<FormInput key={index} name={value} label={value} />);
         return [a, b];

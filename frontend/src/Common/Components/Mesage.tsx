@@ -1,8 +1,12 @@
-import { faX } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import IMessage from "Common/Interfaces/iMessage";
 import { useEffect } from "react";
 
-export default function Message(props) {
+interface IMessageProps extends IMessage {
+  id: number;
+  close(id: number): void;
+}
+
+export default function Message(props: IMessageProps) {
   //   useEffect(() => {
   //     setTimeout(() => {
   //       props.close(props.id);
@@ -15,7 +19,7 @@ export default function Message(props) {
     >
       <p>{props.message}</p>
       <button className="btn" onClick={() => props.close(props.id)}>
-        <FontAwesomeIcon icon={faX} />
+        x
       </button>
     </div>
   );
