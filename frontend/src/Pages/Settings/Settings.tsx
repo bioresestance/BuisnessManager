@@ -2,20 +2,22 @@ import { useState, useEffect } from "react";
 import axios from "axios";
 import { Formik, Form } from "formik";
 import { FormInput } from "Common/Components/FormInputs";
+import { useGetSettings, useUpdateSettingsByGroup } from "Common/Hooks";
 
 export default function Settings() {
   const [settings, setSettings] = useState({ data: "" });
 
-  // Grab the settings from the backend
-  useEffect(() => {
-    axios("http://localhost:5000/api/v1/settings").then((res) => {
+  const { isLoading, refetch } = useGetSettings({
+    onSuccess: (res: any) => {
       setSettings(res);
-    });
-  }, []);
+    },
+  });
+  const mutateSettings = useUpdateSettingsByGroup();
 
   // Loop over the settings object to create a form for each settings group.
-  const settingsForm = Object.keys(settings.data).map((item, index) => {
-    const settingGroup = settings.data[item];
+  const settingsForm = Object.keys(settings).map((item, index) => {
+    const settingGroup = settings[item];
+    console.log(settingGroup);
 
     // Returns a list of inputs representing all the setting for this group.
     const [settingItems, initialValues] = Object.keys(settingGroup).reduce(
@@ -33,9 +35,7 @@ export default function Settings() {
         key={index}
         initialValues={{ ...initialValues }}
         onSubmit={(values) => {
-          axios
-            .post("http://localhost:5000/api/v1/settings" + `/${item}`, values)
-            .then((resp) => console.log(resp));
+          mutateSettings.mutate({ groupName: item, settingsData: values });
         }}
       >
         <Form className="border-2 flex flex-col rounded-md">
@@ -49,12 +49,16 @@ export default function Settings() {
     );
   });
 
+  useEffect(() => {
+    refetch();
+  }, []);
+
   return (
     <div
       id="mainSection"
       className="border-top p-5 grid lg:grid-cols-3 grid-cols-1 gap-4"
     >
-      {settingsForm}
+      {isLoading ? "Loading..." : settingsForm}
     </div>
   );
 }

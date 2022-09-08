@@ -3,7 +3,6 @@ import Header from "Common/Components/Header";
 import Message from "Common/Components/Mesage";
 import { useState } from "react";
 import { Outlet } from "react-router-dom";
-
 import IMessage from "Common/Interfaces/iMessage";
 
 export default function App() {
