@@ -1,9 +1,14 @@
 from os import environ
 from os.path import exists
 from os import mkdir
-from dataclasses import dataclass, asdict, fields
+from dataclasses import dataclass, asdict, field, fields
 from pathlib import Path
+from typing import List
 from dataclass_wizard import YAMLWizard
+
+"""
+Base Class for all setting group classes.
+"""
 
 
 class Setting(YAMLWizard):
@@ -11,25 +16,60 @@ class Setting(YAMLWizard):
         for f in fields(self):
             setattr(self, f.name, getattr(new, f.name))
 
+    def get_name(self):
+        try:
+            return self.common_name()
+        except Exception as details:
+            print("Error:", details)
+        return None
+
+    def common_name(self):
+        raise Exception("Common Name is not implemented")
+
 
 @dataclass
 class GeneralSettings(Setting):
-    title: str = "Home Lab Supervisor"
-    main_color: int = 0x47748B
-    secondary_color: int = 0xCDCDCD
+    def common_name(self):
+        return "General Settings"
+
+    title: str = field(
+        default="Home Lab Supervisor",
+        metadata={"name": "Website Title", "type": "text"},
+    )
+    main_color: int = field(
+        default=0x47748B, metadata={"name": "Main Website Color", "type": "color"}
+    )
+    secondary_color: int = field(
+        default=0xCDCDCD, metadata={"name": "Secondary Website Color", "type": "color"}
+    )
 
 
 @dataclass
 class InvoiceSettings(Setting):
-    name: str = " "
-    logo_url: str = " "
-    address: str = " "
-    phone: str = " "
-    email: str = " "
-    website: str = " "
-    gst_num: str = " "
-    gst_rate: float = 5.0
-    due_date: int = 15
+    def common_name(self):
+        return "Invoice Settings"
+
+    name: str = field(default=" ", metadata={"name": "Company Name", "type": "string"})
+    logo_url: str = field(
+        default=" ", metadata={"name": "Company Logo URL", "type": "url"}
+    )
+    address: str = field(
+        default=" ", metadata={"name": "Company Address", "type": "address"}
+    )
+    phone: str = field(default=" ", metadata={"name": "Company Phone", "type": "phone"})
+    email: str = field(default=" ", metadata={"name": "Company Email", "type": "email"})
+    website: str = field(
+        default=" ", metadata={"name": "Company Website", "type": "url"}
+    )
+    gst_num: str = field(
+        default=" ", metadata={"name": "Company GST/HST Number", "type": "text"}
+    )
+    gst_rate: float = field(
+        default=" ", metadata={"name": "Company GST/HST Tax Rate", "type": "number"}
+    )
+    due_date: int = field(
+        default=" ", metadata={"name": "Invoice Due Date", "type": "number"}
+    )
 
 
 """
@@ -50,6 +90,8 @@ class Configuration(Setting):
     general: GeneralSettings = GeneralSettings()
     invoice: InvoiceSettings = InvoiceSettings()
 
+    config_data = [GeneralSettings(), InvoiceSettings()]
+
     def init(self):
         # First ensure the root user folder exists
         if not exists(_APP_ROOT):
@@ -58,7 +100,30 @@ class Configuration(Setting):
         self.loadFromDisk()
 
     def asDict(self):
-        return asdict(self)
+
+        ret_val = []
+
+        for data in self.config_data:
+            # Create the basic structure of the setting group
+            data_dict = {"name": data.common_name(), "items": []}
+            index = 0
+            # Create list of formated items in each group.
+            for key, value in asdict(data).items():
+                # Metadata of each field lists its name and type.
+                meta = fields(data)[index].metadata
+                # Add the current item to the dictionaries items, all formated.
+                data_dict["items"].append(
+                    {
+                        "key": key,
+                        "value": value,
+                        "common_name": meta["name"],
+                        "type": meta["type"],
+                    }
+                )
+                index = index + 1
+
+            ret_val.append(data_dict)
+        return ret_val
 
     def loadFromDisk(self):
         config_file = _APP_ROOT / _APP_CONFIG_FILE

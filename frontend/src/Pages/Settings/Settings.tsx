@@ -1,51 +1,25 @@
 import { useState, useEffect } from "react";
-import axios from "axios";
-import { Formik, Form } from "formik";
-import { FormInput } from "Common/Components/FormInputs";
-import { useGetSettings, useUpdateSettingsByGroup } from "Common/Hooks";
+import { useGetSettings } from "Common/Hooks";
+import { ISettingsGroup } from "Common/Interfaces/iSettings";
+import SettingsGroupForm from "./Components/SettingsGroupForm";
 
 export default function Settings() {
-  const [settings, setSettings] = useState({ data: "" });
+  const [settings, setSettings] = useState<ISettingsGroup[]>([]);
 
   const { isLoading, refetch } = useGetSettings({
-    onSuccess: (res: any) => {
+    refetchOnMount: true,
+    onSuccess: (res: ISettingsGroup[]) => {
       setSettings(res);
     },
   });
-  const mutateSettings = useUpdateSettingsByGroup();
-
   // Loop over the settings object to create a form for each settings group.
-  const settingsForm = Object.keys(settings).map((item, index) => {
-    const settingGroup = settings[item];
-    console.log(settingGroup);
-
-    // Returns a list of inputs representing all the setting for this group.
-    const [settingItems, initialValues] = Object.keys(settingGroup).reduce(
-      ([a, b], value: string, index: number) => {
-        b[value] = settingGroup[value];
-        a.push(<FormInput key={index} name={value} label={value} />);
-        return [a, b];
-      },
-      [[], {}]
-    );
-
-    // Format the form.
+  let settingsForm = settings.map<JSX.Element>((item, index) => {
     return (
-      <Formik
+      <SettingsGroupForm
         key={index}
-        initialValues={{ ...initialValues }}
-        onSubmit={(values) => {
-          mutateSettings.mutate({ groupName: item, settingsData: values });
-        }}
-      >
-        <Form className="border-2 flex flex-col rounded-md">
-          <h1 className="text-center font-bold text-4xl mb-8 mt-3 ">{item}</h1>
-          {settingItems}
-          <button type="submit" className="btn m-3">
-            Save {item} Settings
-          </button>
-        </Form>
-      </Formik>
+        groupName={item.name}
+        items={item.items}
+      ></SettingsGroupForm>
     );
   });
 
