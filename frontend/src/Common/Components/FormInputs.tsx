@@ -45,7 +45,7 @@ export const FormInputSelect = (props) => {
         }`}
       >
         {props.options.map((value, index) => (
-          <option key={index} value={value.id}>
+          <option key={index} value={value.id} selected={index == 0}>
             {value.name}
           </option>
         ))}

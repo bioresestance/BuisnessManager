@@ -1,35 +1,39 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Client from "./Client";
+import { useDeleteClients, useGetClients } from "Common/Hooks";
+import { iClient } from "Common/Interfaces/iClient";
 
 export default function ClientList() {
-  const [clients, setClients] = useState([]);
+  const [clients, setClients] = useState<iClient[]>();
+  const [clientData, setClientData] = useState<JSX.Element[]>([]);
+  const deleteClient = useDeleteClients();
 
-  function getClients() {
-    axios.get("http://localhost:5000/api/v1/invoice/clients").then((resp) => {
-      setClients(() => {
-        return resp.data.map((value, index) => {
-          return (
-            <Client key={index} {...value} deleteFunction={deleteClient} />
-          );
-        });
-      });
-    });
-  }
-
-  function deleteClient(client_id) {
-    axios
-      .delete(`http://localhost:5000/api/v1/invoice/clients/${client_id}`)
-      .then((resp) => getClients());
-  }
+  const { isLoading, refetch } = useGetClients(false, {
+    refetchOnMount: true,
+    onSuccess: (res: iClient[]) => {
+      setClients(res);
+    },
+  });
 
   useEffect(() => {
-    getClients();
-  }, []);
+    if (clients == undefined) {
+      refetch();
+      return;
+    }
+
+    let value = clients.map((value, index) => {
+      return (
+        <Client key={index} {...value} deleteFunction={deleteClient.mutate} />
+      );
+    });
+
+    setClientData(value);
+  }, [clients]);
 
   return (
     <div className="grid lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-1 gap-4">
-      {clients}
+      {clientData}
     </div>
   );
 }

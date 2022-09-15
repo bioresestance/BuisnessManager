@@ -7,12 +7,12 @@ import Invoice from "./Invoice";
 import iInvoice from "Common/Interfaces/iInvoice";
 
 export default function CurrentInvoices() {
-  const [invoices, setInvoices] = useState<iInvoice[] | string>();
+  const [invoices, setInvoices] = useState<iInvoice[]>();
   const [invoiceData, setInvoiceData] = useState<string | JSX.Element[]>(
     "Loading"
   );
 
-  const { isLoading } = useGetInvoices({
+  const { isLoading, refetch } = useGetInvoices({
     refetchOnMount: true,
     onSuccess: (res: iInvoice[]) => {
       setInvoices(res);
@@ -20,16 +20,21 @@ export default function CurrentInvoices() {
   });
 
   useEffect(() => {
+
+    if(invoices == undefined) {
+      refetch();
+      return;
+    }
+
     if (isLoading == true) {
       setInvoiceData("Loading...");
     } else {
       if (invoices?.length == 0) {
         setInvoiceData("No Invoices to Show");
-      }
-      else {
+      } else {
         let values = (invoices as iInvoice[]).map((value, index) => {
-            return <Invoice key={index} data = {value} />;
-        })
+          return <Invoice key={index} data={value} />;
+        });
 
         setInvoiceData(values);
       }

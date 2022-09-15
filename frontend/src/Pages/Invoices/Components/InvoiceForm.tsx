@@ -11,20 +11,29 @@ import { iClient, iClientSimple } from "Common/Interfaces/iClient";
 import { InvoiceItem } from "Common/Interfaces/iInvoice";
 
 function NewInvoiceForm(props) {
-  const [clients, setClients] = useState<iClientSimple[]>([]);
-  const [clientData, setClientData] = useState<JSX.Element[]>([]);
+  const [clients, setClients] = useState<iClientSimple[]>();
+  const [clientData, setClientData] = useState<iClientSimple[]>([]);
   const createInvoice = useCreateInvoices();
 
-  const { isLoading } = useGetClients(true, {
+  const { isLoading, refetch } = useGetClients(true, {
     refetchOnMount: true,
     onSuccess: (res: iClientSimple[]) => {
-      console.log(res);
       setClients(res);
     },
   });
 
+  useEffect(() => {
+    if (clients == undefined) {
+      refetch();
+      return;
+    }
+
+    setClientData(clients);
+  }, [clients]);
+
   return (
     <Formik
+      enableReinitialize
       initialValues={{
         client: 0,
         date: new Date().toISOString().slice(0, 10).replace(/-/g, "/"), // Gets the current date and formats it.
@@ -40,7 +49,7 @@ function NewInvoiceForm(props) {
           type="select"
           name="client"
           label="Client To Bill"
-          options={clients}
+          options={clientData}
         />
 
         <FormInputDate name="date" label="Invoice Date" />
