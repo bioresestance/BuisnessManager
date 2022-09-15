@@ -8,6 +8,7 @@ export type SettingsGroupItem = {
 };
 
 export interface ISettingsGroup {
+    index: number;
     name: string;
     items: SettingsGroupItem[];
 }

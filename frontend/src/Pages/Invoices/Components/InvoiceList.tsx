@@ -1,45 +1,44 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
 import { FaDownload } from "react-icons/fa";
+import API from "Common/API/Index";
+import { useGetInvoices } from "Common/Hooks";
+import Invoice from "./Invoice";
+import iInvoice from "Common/Interfaces/iInvoice";
 
 export default function CurrentInvoices() {
-  const [invoices, setInvoices] = useState([]);
+  const [invoices, setInvoices] = useState<iInvoice[] | string>();
+  const [invoiceData, setInvoiceData] = useState<string | JSX.Element[]>(
+    "Loading"
+  );
 
-  function on_delete_click(id) {
-    axios.delete(`http://localhost:5000/api/v1/invoice/${id}`);
-  }
+  const { isLoading } = useGetInvoices({
+    refetchOnMount: true,
+    onSuccess: (res: iInvoice[]) => {
+      setInvoices(res);
+    },
+  });
 
   useEffect(() => {
-    axios.get("http://localhost:5000/api/v1/invoice/").then((resp) => {
-      setInvoices(() => {
-        return resp.data.map((value, index) => {
-          return (
-            <div className="border m-3 p-2 flex flex-col gap-3" key={index}>
-              <h1 className="text-3xl place-self-center">Invoice {value.id}</h1>
-              Company: {value?.client?.client_name}
-              <a
-                className="btn"
-                href={`http://localhost:5000/api/v1/invoice/${value.id}`}
-                download
-              >
-                Download{"  "}
-                <span className="pl-2">
-                  <FaDownload />
-                </span>
-              </a>
-              <button className="btn" onClick={() => on_delete_click(value.id)}>
-                Delete <span className="pl-2"></span>
-              </button>
-            </div>
-          );
-        });
-      });
-    });
-  }, []);
+    if (isLoading == true) {
+      setInvoiceData("Loading...");
+    } else {
+      if (invoices?.length == 0) {
+        setInvoiceData("No Invoices to Show");
+      }
+      else {
+        let values = (invoices as iInvoice[]).map((value, index) => {
+            return <Invoice key={index} data = {value} />;
+        })
+
+        setInvoiceData(values);
+      }
+    }
+  }, [invoices]);
 
   return (
     <div className="grid lg:grid-cols-5 md:grid-cols-3 sm:grid-cols-1">
-      {invoices}
+      {invoiceData}
     </div>
   );
 }

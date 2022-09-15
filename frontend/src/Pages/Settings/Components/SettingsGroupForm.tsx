@@ -4,6 +4,7 @@ import { useUpdateSettingsByGroup } from "Common/Hooks";
 import { FormInput } from "Common/Components/FormInputs";
 
 const SettingsGroupForm = (props: {
+  index: number;
   groupName: string;
   items: SettingsGroupItem[];
 }) => {
@@ -26,7 +27,7 @@ const SettingsGroupForm = (props: {
       key={props.groupName}
       initialValues={{ ...initialValues }}
       onSubmit={(values) => {
-        // mutateSettings.mutate({ groupName: item, settingsData: values });
+        mutateSettings.mutate({ groupIndex: props.index, settingsData: values });
       }}
     >
       <Form className="border-2 flex flex-col rounded-md">

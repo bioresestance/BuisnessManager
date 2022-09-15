@@ -65,10 +65,10 @@ class InvoiceSettings(Setting):
         default=" ", metadata={"name": "Company GST/HST Number", "type": "text"}
     )
     gst_rate: float = field(
-        default=" ", metadata={"name": "Company GST/HST Tax Rate", "type": "number"}
+        default=5.0, metadata={"name": "Company GST/HST Tax Rate", "type": "number"}
     )
     due_date: int = field(
-        default=" ", metadata={"name": "Invoice Due Date", "type": "number"}
+        default=15, metadata={"name": "Invoice Due Date", "type": "number"}
     )
 
 
@@ -86,9 +86,6 @@ _APP_CONFIG_FILE = "config.cfg"
 
 @dataclass
 class Configuration(Setting):
-    # Secret key for data encryption
-    general: GeneralSettings = GeneralSettings()
-    invoice: InvoiceSettings = InvoiceSettings()
 
     config_data = [GeneralSettings(), InvoiceSettings()]
 
@@ -103,14 +100,14 @@ class Configuration(Setting):
 
         ret_val = []
 
-        for data in self.config_data:
+        for idx, data in enumerate(self.config_data):
             # Create the basic structure of the setting group
-            data_dict = {"name": data.common_name(), "items": []}
-            index = 0
+            data_dict = {"index": idx, "name": data.common_name(), "items": []}
+
             # Create list of formated items in each group.
-            for key, value in asdict(data).items():
+            for item_idx, [key, value] in enumerate(asdict(data).items()):
                 # Metadata of each field lists its name and type.
-                meta = fields(data)[index].metadata
+                meta = fields(data)[item_idx].metadata
                 # Add the current item to the dictionaries items, all formated.
                 data_dict["items"].append(
                     {
@@ -120,8 +117,6 @@ class Configuration(Setting):
                         "type": meta["type"],
                     }
                 )
-                index = index + 1
-
             ret_val.append(data_dict)
         return ret_val
 

@@ -17,6 +17,7 @@ export default function Settings() {
     return (
       <SettingsGroupForm
         key={index}
+        index={item.index}
         groupName={item.name}
         items={item.items}
       ></SettingsGroupForm>

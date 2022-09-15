@@ -21,8 +21,8 @@ class SettingsAPI {
         return response.data;
     }
 
-    public updateGroup = async (groupName:string, settingsData:object) => {
-        const response = await this.apiClient.post(`/settings/${groupName}`, settingsData);
+    public updateGroup = async (groupIndex:number, settingsData:object) => {
+        const response = await this.apiClient.post(`/settings/${groupIndex}`, settingsData);
         return response.data;
     }
 
