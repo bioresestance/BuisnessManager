@@ -1,3 +1,4 @@
+from dataclasses import asdict
 from flask import Blueprint, jsonify, Response
 from server import serverconfig
 from flask_restx import Resource, Api
@@ -15,19 +16,27 @@ class SettingsRoute(Resource):
         print(api.payload)
 
 
-@api.route("/<group>")
-@api.param("group", "Group name to work with")
-@api.doc(params={"group": "Group name to work with"})
+@api.route("/<int:group_id>")
+@api.param("group_id", "Group id to work with")
+@api.doc(params={"group_id": "Group id to work with"})
 class SettingsGroupRoute(Resource):
-    def get(self, group):
-        if group not in serverconfig.asDict():
-            return Response("Erorr 404: Group Token not in Settings", 404)
-        return serverconfig.asDict()[group]
+    def get(self, group_id: int):
+        if group_id >= len(serverconfig.config_data):
+            return Response("Erorr 404: Group ID not in Settings", 404)
+        return asdict(serverconfig.config_data[group_id])
 
-    def post(self, group):
-        if group not in serverconfig.asDict():
-            return Response("Erorr 404: Group Token not in Settings", 404)
+    def post(self, group_id: int):
+        if group_id >= len(serverconfig.config_data):
+            return Response("Erorr 404: Group ID not in Settings", 404)
 
-        setattr(serverconfig, group, api.payload)
+        list_items = list(serverconfig.config_data)
+
+        # Creates new object based on currect index, sets data from payload.
+        new_setting = serverconfig.config_data[list_items[group_id]].__class__(
+            **api.payload
+        )
+
+        serverconfig.config_data[list_items[group_id]] = new_setting
+        # print(serverconfig.config_data)
         serverconfig.saveToDisk()
         return serverconfig.asDict()

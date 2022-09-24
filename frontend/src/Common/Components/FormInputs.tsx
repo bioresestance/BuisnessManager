@@ -1,3 +1,4 @@
+import { DateToString } from "Common/Utilities";
 import { Formik, Form, useField, Field, useFormikContext } from "formik";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
@@ -44,6 +45,10 @@ export const FormInputSelect = (props) => {
           meta.touched && meta.error ? "border-red-700 border-2" : ""
         }`}
       >
+        <option value="0">
+            Please Select a Value
+          </option>
+
         {props.options.map((value, index) => (
           <option key={index} value={value.id}>
             {value.name}
@@ -72,8 +77,8 @@ export const FormInputDate = (props) => {
         {...props}
         dateFormat="yyyy/MM/dd"
         selected={(field.value && new Date(field.value)) || null}
-        onChange={(val) => {
-          setFieldValue(field.name, val);
+        onChange={(val:Date) => {
+          setFieldValue(field.name, DateToString(val));
         }}
       />
       {meta.touched && meta.error ? (

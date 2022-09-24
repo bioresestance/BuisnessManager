@@ -31,3 +31,15 @@ export const newClientFormSchema = yup.object().shape({
     .email("Please enter a valid Email")
     .required("Email is required"),
 });
+
+export const newInvoiceFormSchema = yup.object().shape({
+  client: yup.string().not(["0"], "Please Select a Client"),
+  date: yup.string(),
+  items: yup.array().of(
+    yup.object().shape({
+      description: yup.string().required("Please Enter an Item Desciption"),
+      quantity: yup.number().typeError("Value must be a number").positive("Value must be greater than 0").required("Item Quantity Required"),
+      price: yup.number().typeError("Value must be a number").positive("Value must be greater than 0").required("Item Quantity Required")
+    })
+  )
+});

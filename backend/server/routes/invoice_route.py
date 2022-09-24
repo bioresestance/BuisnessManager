@@ -1,4 +1,4 @@
-from flask import Blueprint, send_file
+from flask import Blueprint, send_file, request
 from flask_restx import Resource, Api, fields
 
 from server.models import db, Client, Invoice
@@ -12,8 +12,15 @@ invoice_route = Blueprint("Invoices", __name__)
 api = Api(invoice_route)
 
 
-def listAllClients():
-    return [client.to_dict() for client in Client.query.all()]
+def listAllClients(is_simple: bool):
+
+    if is_simple:
+        return [
+            {"id": client.id, "name": client.client_name}
+            for client in Client.query.all()
+        ]
+    else:
+        return [client.to_dict() for client in Client.query.all()]
 
 
 @api.route("/")
@@ -64,7 +71,13 @@ class InvoiceIdRoute(Resource):
 class InvoiceClientsRoute(Resource):
     # Gets all Clients.
     def get(self):
-        return listAllClients()
+
+        is_simple = False
+
+        if "isSimple" in request.args:
+            is_simple = request.args["isSimple"].lower() == "true"
+
+        return listAllClients(is_simple=is_simple)
 
     # Create a new Client.
     def post(self):

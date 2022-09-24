@@ -42,13 +42,15 @@ def generateInvoice(invoice):
 
     client: ClientDB = ClientDB.query.filter_by(id=invoice.client_id).first()
 
+    invoice_conf = serverconfig.config_data["invoice"]
+
     company = Company(
-        serverconfig.invoice.name,
-        serverconfig.invoice.address,
-        serverconfig.invoice.phone,
-        serverconfig.invoice.email,
-        serverconfig.invoice.website,
-        serverconfig.invoice.gst_num,
+        invoice_conf.name,
+        invoice_conf.address,
+        invoice_conf.phone,
+        invoice_conf.email,
+        invoice_conf.website,
+        invoice_conf.gst_num,
     )
 
     clientInfo = ClientInfo(
@@ -72,9 +74,9 @@ def generateInvoice(invoice):
     document = InvoiceGenerator(
         company=company,
         client=Client(clientInfo, clientInfo),
-        tax_rate_percent=serverconfig.invoice.gst_rate,
+        tax_rate_percent=invoice_conf.gst_rate,
         invoice_date=invoice.date,
-        invoice_due_period=serverconfig.invoice.due_date,
+        invoice_due_period=invoice_conf.due_date,
         invoice_number=invoice_num,
     )
 
@@ -83,7 +85,7 @@ def generateInvoice(invoice):
 
     document.create_default_document(
         billing_items=items,
-        image_path=serverconfig.invoice.logo_url,
+        image_path=invoice_conf.logo_url,
         output_file_name=file_name,
     )
     return str(file_name)
