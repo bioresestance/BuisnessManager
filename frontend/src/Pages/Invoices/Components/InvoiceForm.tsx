@@ -9,6 +9,8 @@ import axios from "axios";
 import { useCreateInvoices, useGetClients } from "Common/Hooks";
 import { iClient, iClientSimple } from "Common/Interfaces/iClient";
 import { InvoiceItem } from "Common/Interfaces/iInvoice";
+import { DateToString, GetCurrentDate } from "Common/Utilities";
+import { newInvoiceFormSchema } from "Common/Constants/Schemas";
 
 function NewInvoiceForm(props) {
   const [clients, setClients] = useState<iClientSimple[]>();
@@ -34,9 +36,10 @@ function NewInvoiceForm(props) {
   return (
     <Formik
       enableReinitialize
+      validationSchema={newInvoiceFormSchema}
       initialValues={{
         client: 0,
-        date: new Date().toISOString().slice(0, 10).replace(/-/g, "/"), // Gets the current date and formats it.
+        date: DateToString(GetCurrentDate()), // Gets the current date and formats it.
         items: [{ description: "", quantity: 0, price: 0 }],
       }}
       onSubmit={(data) => {
