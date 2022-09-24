@@ -40,6 +40,7 @@ function NewInvoiceForm(props) {
         items: [{ description: "", quantity: 0, price: 0 }],
       }}
       onSubmit={(data) => {
+        console.log(data);
         createInvoice.mutate(data);
       }}
     >

@@ -11,7 +11,7 @@ class ClientAPI {
   };
 
   public create = async (data: object) => {
-    const response = await this.apiClient.post("/invoice/clients", data);
+    const response = await this.apiClient.post("/invoice/clients/", data);
     return response;
   };
 

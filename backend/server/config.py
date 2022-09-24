@@ -87,7 +87,7 @@ _APP_CONFIG_FILE = "config.cfg"
 @dataclass
 class Configuration(Setting):
 
-    config_data = [GeneralSettings(), InvoiceSettings()]
+    config_data = {"general": GeneralSettings(), "invoice": InvoiceSettings()}
 
     def init(self):
         # First ensure the root user folder exists
@@ -100,14 +100,14 @@ class Configuration(Setting):
 
         ret_val = []
 
-        for idx, data in enumerate(self.config_data):
+        for idx, [data_key, data_value] in enumerate(self.config_data.items()):
             # Create the basic structure of the setting group
-            data_dict = {"index": idx, "name": data.common_name(), "items": []}
+            data_dict = {"index": idx, "name": data_value.common_name(), "items": []}
 
             # Create list of formated items in each group.
-            for item_idx, [key, value] in enumerate(asdict(data).items()):
+            for item_idx, [key, value] in enumerate(asdict(data_value).items()):
                 # Metadata of each field lists its name and type.
-                meta = fields(data)[item_idx].metadata
+                meta = fields(data_value)[item_idx].metadata
                 # Add the current item to the dictionaries items, all formated.
                 data_dict["items"].append(
                     {

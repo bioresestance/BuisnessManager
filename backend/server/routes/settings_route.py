@@ -29,10 +29,14 @@ class SettingsGroupRoute(Resource):
         if group_id >= len(serverconfig.config_data):
             return Response("Erorr 404: Group ID not in Settings", 404)
 
-        # Creates new object based on currect index, sets data from payload.
-        new_setting = serverconfig.config_data[group_id].__class__(**api.payload)
+        list_items = list(serverconfig.config_data)
 
-        serverconfig.config_data[group_id] = new_setting
-        print(serverconfig.config_data)
+        # Creates new object based on currect index, sets data from payload.
+        new_setting = serverconfig.config_data[list_items[group_id]].__class__(
+            **api.payload
+        )
+
+        serverconfig.config_data[list_items[group_id]] = new_setting
+        # print(serverconfig.config_data)
         serverconfig.saveToDisk()
         return serverconfig.asDict()

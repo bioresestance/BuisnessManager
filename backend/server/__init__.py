@@ -3,7 +3,6 @@ from server.config import Configuration, _SECRET_KEY, _APP_ROOT
 from flask_restx import Api
 from flask_cors import CORS
 from server.models import db
-from pathlib import Path
 
 
 app = Flask(__name__)
@@ -29,7 +28,7 @@ def get_app():
     app.register_blueprint(api_routes, url_prefix="/api/v1/")
 
     restApi.init_app(app, doc=True)
-    cors.init_app(app)
+    cors.init_app(app=app)
     db.app = app
     db.init_app(app)
     db.create_all()
