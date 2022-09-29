@@ -1,20 +1,19 @@
 version: "3.7"
 
-########################### Services ########################### 
+########################### Services ###########################
 
 services:
 
-    home-lab-supervisor:
-        container_name: home-lab-supervisor
+    business-manager-backend:
+        container_name: business-manager-backend
         build:
           context: ./
-          dockerfile: dockerfile
+          dockerfile: dockerfile.backend
         restart: unless-stopped
         ports:
-          - target: 5000
-            published: 5000
+          - target: 5001
+            published: 5001
             protocol: tcp
             mode: host
         environment:
-            SERVER_ENV: development
             SERVER_SECRET_KEY: "This is a totally secret key"
