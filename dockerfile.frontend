@@ -1,18 +1,27 @@
 # The first stage is for building the project files.
 FROM node:18.7.0-alpine AS builder
 
-ENV NODE_ENV=production
+# Tells the applicatiom that it is running as a docker container.
+ENV DOCKER_MODE=true
 
 # set the working directory in the container
 WORKDIR /app
 
-# copy the dependencies files to the working directory
-COPY ./frontend .
+# Copy the Node package files
+COPY ./frontend/package*.json ./
 
-# install npm dependencies, then build the project.
-RUN npm install --production
+# Install the packages
+RUN npm install
+RUN npm install typescript -g
+
+# copy the rest of the files
+COPY ./frontend ./
+
+# Build the project
 RUN npm run build
 
+
+## Second stage, run the NGINX server with the results of the build stage.
 FROM nginx:1.23.1-alpine
 
 # Copy the project output from last stage to the html folder.

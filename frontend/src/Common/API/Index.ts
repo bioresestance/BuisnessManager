@@ -2,9 +2,10 @@ import axios, { AxiosInstance } from "axios";
 import ClientAPI from "./Invoices/ClientAPI";
 import InvoiceAPI from "./Invoices/InvoiceAPI";
 import SettingsAPI from "./Settings/SettingsAPI";
+import "vite/client";
 
 class API {
-  private static _baseUrl = "http://localhost:5001/api/v1";
+  private static _baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   private static _apiClient = axios.create({ baseURL: this._baseUrl });
 
