@@ -1,9 +1,6 @@
 # The first stage is for building the project files.
 FROM node:18.7.0-alpine AS builder
 
-# Tells the applicatiom that it is running as a docker container.
-ENV DOCKER_MODE=true
-
 # set the working directory in the container
 WORKDIR /app
 

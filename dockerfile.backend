@@ -24,4 +24,4 @@ RUN flask db upgrade
 EXPOSE 5001
 
 # command to run on container start
-CMD ["gunicorn", "-b", ":5001", "main:flaskApp"]
+CMD ["gunicorn", "-b", ":5001", "wsgi:app"]
