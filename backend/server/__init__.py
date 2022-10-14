@@ -32,6 +32,5 @@ def get_app():
     db.app = app
     db.init_app(app)
     migrate.init_app(app, db)
-    db.create_all()
 
     return app

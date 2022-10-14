@@ -18,6 +18,9 @@ RUN mkdir /app
 ENV FLASK_ENV production
 ENV SERVER_ROOT /app
 
+# Either creates a new DB with latest schema, or will upgrade an existing DB to latest schema.
+RUN flask db upgrade
+
 EXPOSE 5001
 
 # command to run on container start
