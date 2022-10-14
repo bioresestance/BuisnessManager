@@ -16,6 +16,8 @@ services:
         context: ./
         dockerfile: dockerfile.backend
       restart: unless-stopped
+      volumes:
+        - "~/app:/app"
       networks:
         - backend
       environment:
