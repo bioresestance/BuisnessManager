@@ -1,6 +1,7 @@
 flask[async]
 flask-restx
 flask_cors
+Flask-Migrate
 Flask-SQLAlchemy
 SQLAlchemy-serializer
 
