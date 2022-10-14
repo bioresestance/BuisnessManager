@@ -2,7 +2,6 @@ import axios, { AxiosInstance } from "axios";
 import ClientAPI from "./Invoices/ClientAPI";
 import InvoiceAPI from "./Invoices/InvoiceAPI";
 import SettingsAPI from "./Settings/SettingsAPI";
-import "vite/client";
 
 class API {
   private static _baseUrl = import.meta.env.VITE_BACKEND_URL;
