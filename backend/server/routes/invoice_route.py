@@ -42,7 +42,7 @@ class InvoiceRoute(Resource):
         return create_invoice(api.payload)
 
 
-@api.route("/<id>")
+@api.route("/<id>/")
 class InvoiceIdRoute(Resource):
     def get(self, id: int):
         file: Invoice = Invoice.query.filter_by(id=id).first()
@@ -67,7 +67,7 @@ class InvoiceIdRoute(Resource):
             return "That Invoice does not exist", 404
 
 
-@api.route("/clients")
+@api.route("/clients/")
 class InvoiceClientsRoute(Resource):
     # Gets all Clients.
     def get(self):
@@ -88,7 +88,7 @@ class InvoiceClientsRoute(Resource):
 
 
 ## Client access by ID.
-@api.route("/clients/<id>")
+@api.route("/clients/<id>/")
 class InvoiceClientRoute(Resource):
     def get(self, id: int):
         client = Client.query.filter_by(id=id).first()

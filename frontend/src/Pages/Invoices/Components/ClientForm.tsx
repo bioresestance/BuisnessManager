@@ -2,8 +2,11 @@ import axios from "axios";
 import { Formik, Form } from "formik";
 import { FormInput } from "Common/Components/FormInputs";
 import { newClientFormSchema } from "Common/Constants/Schemas";
+import { useCreateClients } from "Common/Hooks";
 
 export default function ClientForm() {
+  const createClient = useCreateClients();
+
   return (
     <div>
       <Formik
@@ -20,9 +23,8 @@ export default function ClientForm() {
         }}
         validationSchema={newClientFormSchema}
         onSubmit={(values) => {
-          axios
-            .post("http://localhost:5000/api/v1/invoice/clients", values)
-            .then((resp) => console.log(resp));
+          console.log(values);
+          createClient.mutate(values);
         }}
       >
         <Form className="border flex flex-col rounded-md place-items-center">

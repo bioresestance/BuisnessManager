@@ -14,7 +14,7 @@ class InvoiceAPI {
   };
 
   public delete = async (id: number) => {
-    const response = await this.apiClient.delete(`/invoice/${id}`);
+    const response = await this.apiClient.delete(`/invoice/${id}/`);
     return response;
   };
 }
