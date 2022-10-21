@@ -20,7 +20,7 @@ class SettingsAPI {
 
   public updateGroup = async (groupIndex: number, settingsData: object) => {
     const response = await this.apiClient.post(
-      `/settings/${groupIndex}`,
+      `/settings/${groupIndex}/`,
       settingsData
     );
     return response.data;

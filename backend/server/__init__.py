@@ -2,12 +2,14 @@ from flask import Flask
 from server.config import Configuration, _SECRET_KEY, _APP_ROOT
 from flask_restx import Api
 from flask_cors import CORS
+from flask_migrate import Migrate
 from server.models import db
 
 
 app = Flask(__name__)
 cors = CORS()
 restApi = Api()
+migrate = Migrate()
 serverconfig = Configuration()
 
 
@@ -17,9 +19,7 @@ def get_app():
 
     app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = True
     app.config["SECRET_KEY"] = _SECRET_KEY
-    app.config["SQLALCHEMY_DATABASE_URI"] = (
-        "sqlite://" + "//home/aaron/app" + "/database.db"
-    )
+    app.config["SQLALCHEMY_DATABASE_URI"] = f"sqlite:////{_APP_ROOT}/database.db"
 
     # Register the different blueprints.
     from server.routes import api_routes
@@ -31,6 +31,6 @@ def get_app():
     cors.init_app(app=app)
     db.app = app
     db.init_app(app)
-    db.create_all()
+    migrate.init_app(app, db)
 
     return app

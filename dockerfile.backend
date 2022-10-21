@@ -1,0 +1,27 @@
+# set base image (host OS)
+FROM python:3.10
+
+# set the working directory in the container
+WORKDIR /backend
+
+# copy the dependencies file to the working directory
+COPY /backend/requirements.txt .
+
+# install dependencies
+RUN pip3 install -r requirements.txt
+
+# copy the content of the local src directory to the working directory
+COPY backend/ .
+
+RUN mkdir /app
+
+ENV FLASK_ENV production
+ENV SERVER_ROOT /app
+
+# Either creates a new DB with latest schema, or will upgrade an existing DB to latest schema.
+RUN flask db upgrade
+
+EXPOSE 5001
+
+# command to run on container start
+CMD ["gunicorn", "-b", ":5001", "wsgi:app"]

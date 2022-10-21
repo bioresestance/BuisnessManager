@@ -4,7 +4,7 @@ import InvoiceAPI from "./Invoices/InvoiceAPI";
 import SettingsAPI from "./Settings/SettingsAPI";
 
 class API {
-  private static _baseUrl = "http://localhost:5001/api/v1";
+  private static _baseUrl = import.meta.env.VITE_BACKEND_URL;
 
   private static _apiClient = axios.create({ baseURL: this._baseUrl });
 

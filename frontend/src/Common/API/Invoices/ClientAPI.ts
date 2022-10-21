@@ -5,7 +5,7 @@ class ClientAPI {
 
   public get = async (isSimple = false) => {
     const response = await this.apiClient.get(
-      `/invoice/clients${isSimple ? "?isSimple=true" : ""}`
+      `/invoice/clients/${isSimple ? "?isSimple=true" : ""}`
     );
     return response.data;
   };
@@ -16,7 +16,7 @@ class ClientAPI {
   };
 
   public delete = async (id: number) => {
-    const response = await this.apiClient.delete(`/invoice/clients/${id}`);
+    const response = await this.apiClient.delete(`/invoice/clients/${id}/`);
     return response;
   };
 }
