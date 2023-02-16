@@ -9,4 +9,4 @@ pyyaml
 python-dotenv
 borb
 dataclass_wizard
-Werkzeug==2.1.2
+Werkzeug==2.2.3
